@@ -3,520 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wild LingsCars CTA Buttons</title>
+    <title>My HTML Projects</title>
     <style>
+        /* Basic styling */
         body {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            background-color: #111;
-            background-image: 
-                linear-gradient(45deg, #ff00ff 25%, transparent 25%),
-                linear-gradient(-45deg, #ff00ff 25%, transparent 25%),
-                linear-gradient(45deg, transparent 75%, #ff00ff 75%),
-                linear-gradient(-45deg, transparent 75%, #ff00ff 75%);
-            background-size: 20px 20px;
-            margin: 0;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow-x: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            text-align: center;
+            margin: 20px 0 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
         }
 
         h1 {
-            color: yellow;
-            text-shadow: 
-                3px 3px 0 #ff0000,
-                -3px -3px 0 #00ff00,
-                3px -3px 0 #0000ff,
-                -3px 3px 0 #ff00ff;
-            font-size: 3rem;
-            text-align: center;
-            animation: rainbow 3s linear infinite;
-            margin-bottom: 2rem;
+            font-size: 2.4rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
         }
 
-        .button-container {
+        .subtitle {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+        }
+
+        .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            width: 100%;
-            max-width: 1200px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
         }
 
-        .button-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding: 1rem;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            border: 3px dashed yellow;
-        }
-
-        .button-title {
-            color: white;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            text-align: center;
-            text-shadow: 2px 2px 0 #000;
-        }
-
-        /* Base CTA Button Style */
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            padding: 1rem 2rem;
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            text-decoration: none;
-            color: white;
-            background-color: #F77B2F;
-            border: none;
-            cursor: pointer;
-            overflow: hidden;
-            transition: all 0.3s;
+        .project-card {
+            background-color: white;
             border-radius: 8px;
-            margin: 1rem 0;
-            min-width: 250px;
-            min-height: 80px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Button 1: 3D Rotating Button */
-        .cta-3d {
-            transform-style: preserve-3d;
-            perspective: 1000px;
-            animation: rotate3d 5s infinite linear;
-            background: linear-gradient(135deg, #F77B2F, #ff3300);
-            text-shadow: 
-                2px 2px 0 black,
-                -2px -2px 0 black,
-                2px -2px 0 black,
-                -2px 2px 0 black;
-            box-shadow: 
-                0 0 0 4px yellow,
-                0 0 0 8px blue,
-                0 10px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        @keyframes rotate3d {
-            0% { transform: rotateY(0deg) rotateX(0deg); }
-            50% { transform: rotateY(180deg) rotateX(10deg); }
-            100% { transform: rotateY(360deg) rotateX(0deg); }
-        }
-
-        /* Button 2: Pulsing Glow with Particles */
-        .cta-pulse {
-            animation: pulse 1.5s infinite;
-            font-size: 2rem;
-            border: 3px solid white;
-            text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff;
-            overflow: visible;
-        }
-
-        .cta-pulse::before {
-            content: "";
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            border: 2px solid #F77B2F;
-            border-radius: 12px;
-            animation: pulse-border 1.5s infinite 0.2s;
-            z-index: -1;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(247, 123, 47, 0.7); }
-            50% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(247, 123, 47, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(247, 123, 47, 0); }
-        }
-
-        @keyframes pulse-border {
-            0% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.1); }
-            100% { opacity: 0; transform: scale(1.2); }
-        }
-
-        /* Button 3: Shaking Button with Rainbow Border */
-        .cta-shake {
-            animation: shake 0.5s infinite;
-            border: 6px solid;
-            border-image: linear-gradient(
-                45deg, 
-                red, orange, yellow, green, blue, indigo, violet
-            ) 1;
-            box-shadow: 
-                0 0 10px rgba(255, 0, 0, 0.8),
-                0 0 20px rgba(255, 255, 0, 0.6),
-                0 0 30px rgba(0, 255, 0, 0.4),
-                0 0 40px rgba(0, 0, 255, 0.2);
-        }
-
-        @keyframes shake {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-5px) rotate(-1deg); }
-            50% { transform: translateX(5px) rotate(1deg); }
-            75% { transform: translateX(-5px) rotate(-1deg); }
-            100% { transform: translateX(0); }
-        }
-
-        /* Button 4: Animated Gradient Background */
-        .cta-gradient {
-            background: linear-gradient(90deg, #F77B2F, #ff3300, #ff9900, #F77B2F);
-            background-size: 300% 100%;
-            animation: gradient-shift 4s linear infinite;
-            border: 4px dotted white;
-        }
-
-        @keyframes gradient-shift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Button 5: Moving Text Shadows */
-        .cta-text-shadow {
-            background: #F77B2F;
-            animation: text-shadow-dance 2s infinite;
-            font-size: 2rem;
-            letter-spacing: 2px;
-        }
-
-        @keyframes text-shadow-dance {
-            0% {
-                text-shadow: 
-                    2px 2px 0 blue, 
-                    -2px -2px 0 red;
-            }
-            25% {
-                text-shadow: 
-                    -2px 2px 0 green, 
-                    2px -2px 0 yellow;
-            }
-            50% {
-                text-shadow: 
-                    -2px -2px 0 purple, 
-                    2px 2px 0 cyan;
-            }
-            75% {
-                text-shadow: 
-                    2px -2px 0 magenta, 
-                    -2px 2px 0 lime;
-            }
-            100% {
-                text-shadow: 
-                    2px 2px 0 blue, 
-                    -2px -2px 0 red;
-            }
-        }
-
-        /* Button 6: Shape Changer */
-        .cta-shape-shift {
-            background: #F77B2F;
-            animation: shape-shift 4s infinite;
-            border: 5px solid white;
-        }
-
-        @keyframes shape-shift {
-            0% { border-radius: 8px; }
-            25% { border-radius: 50% 8px 8px 8px; }
-            50% { border-radius: 8px 50% 8px 8px; }
-            75% { border-radius: 8px 8px 50% 8px; }
-            100% { border-radius: 8px; }
-        }
-
-        /* Button 7: Animated Emojis Background */
-        .cta-emoji {
-            background: #F77B2F;
-            position: relative;
             overflow: hidden;
-            z-index: 1;
-            border: 3px solid yellow;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .cta-emoji::after {
-            content: "🚗 💰 🔥 💯 👍";
-            position: absolute;
-            font-size: 24px;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            animation: emoji-float 5s linear infinite;
-            opacity: 0.3;
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         }
 
-        @keyframes emoji-float {
-            0% { transform: translateY(100%) translateX(-100%); }
-            100% { transform: translateY(-100%) translateX(100%); }
-        }
-
-        /* Button 8: Click Me Hand Animation */
-        .cta-click-me {
-            background: #F77B2F;
-            transition: all 0.3s;
-            border: 5px ridge gold;
-        }
-
-        .hand {
-            position: absolute;
-            right: -40px;
-            bottom: -40px;
-            font-size: 40px;
-            animation: point-click 2s infinite;
-            transform-origin: bottom right;
-        }
-
-        @keyframes point-click {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.2) rotate(-15deg); }
-            60% { transform: scale(0.9) rotate(0deg); }
-            70% { transform: scale(1.1) rotate(-10deg); }
-        }
-
-        /* Button 9: Breaking Apart */
-        .cta-breaking {
-            background: #F77B2F;
-            position: relative;
-            transition: transform 0.3s;
-        }
-
-        .cta-breaking::before, 
-        .cta-breaking::after {
-            content: "Continue";
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: #F77B2F;
+        .card-image {
+            height: 160px;
+            background-color: #ddd;
             display: flex;
             align-items: center;
             justify-content: center;
-            clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
-            top: 0;
-            left: 0;
-            transition: transform 0.2s;
+            color: #666;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .cta-breaking::after {
-            clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
-            top: unset;
-            bottom: 0;
+        .card-content {
+            padding: 20px;
         }
 
-        .cta-breaking:hover::before {
-            transform: translateY(-10px) rotate(-5deg);
+        .card-content h2 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            color: #2c3e50;
         }
 
-        .cta-breaking:hover::after {
-            transform: translateY(10px) rotate(5deg);
+        .card-content p {
+            color: #666;
+            margin-bottom: 20px;
         }
 
-        /* Button 10: Neon Effect */
-        .cta-neon {
-            background: transparent;
-            color: #F77B2F;
-            border: 4px solid #F77B2F;
-            box-shadow: 
-                0 0 5px #F77B2F, 
-                0 0 10px #F77B2F, 
-                0 0 20px #F77B2F, 
-                0 0 40px #F77B2F;
-            text-shadow: 
-                0 0 5px #F77B2F, 
-                0 0 10px #F77B2F, 
-                0 0 20px #F77B2F;
-            animation: neon-flicker 2s infinite;
-        }
-
-        @keyframes neon-flicker {
-            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-                text-shadow: 
-                    0 0 5px #F77B2F, 
-                    0 0 10px #F77B2F, 
-                    0 0 20px #F77B2F;
-                box-shadow: 
-                    0 0 5px #F77B2F, 
-                    0 0 10px #F77B2F, 
-                    0 0 20px #F77B2F, 
-                    0 0 40px #F77B2F;
-            }
-            20%, 24%, 55% {
-                text-shadow: none;
-                box-shadow: none;
-            }
-        }
-
-        @keyframes rainbow {
-            0% { color: red; }
-            14% { color: orange; }
-            28% { color: yellow; }
-            42% { color: green; }
-            57% { color: blue; }
-            71% { color: indigo; }
-            85% { color: violet; }
-            100% { color: red; }
-        }
-
-        /* Marquee Effects */
-        .marquee {
-            width: 100%;
-            color: yellow;
-            background: #000;
-            white-space: nowrap;
-            overflow: hidden;
-            position: relative;
-            font-size: 2rem;
-            padding: 0.5rem 0;
-            margin: 2rem 0;
-            font-weight: bold;
-        }
-
-        .marquee-content {
+        .card-content a {
             display: inline-block;
-            animation: marquee 15s linear infinite;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
         }
 
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
+        .card-content a:hover {
+            background-color: #2980b9;
         }
 
-        /* Button Hover Effects */
-        .cta-button:not(.cta-3d, .cta-pulse, .cta-shake, .cta-gradient, .cta-text-shadow, .cta-shape-shift):hover {
-            transform: scale(1.05);
-            filter: brightness(1.2);
+        .creation-date {
+            font-size: 0.85rem;
+            color: #999;
+            margin-top: 15px;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
         }
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
-            .button-container {
+            .projects-grid {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <h1>1-800 CONTACTS - WILD CTA BUTTONS!</h1>
+    <header>
+        <h1>My HTML Projects Gallery</h1>
+        <p class="subtitle">A collection of HTML, CSS, and JavaScript projects I've created with Claude</p>
+    </header>
 
-    <div class="marquee">
-        <div class="marquee-content">
-            👁️ CRAZY DEALS! 👁️ WILD SAVINGS! 👁️ MEGA BARGAINS! 👁️ CLICK ANY BUTTON FOR USA'S BEST CONTACT LENS DEALS! 👁️
-        </div>
-    </div>
-
-    <div class="button-container">
-        <div class="button-wrapper">
-            <div class="button-title">CLEAR VISION DEAL</div>
-            <button class="cta-button cta-3d">Continue</button>
-        </div>
-
-        <div class="button-wrapper">
-            <div class="button-title">DAILY CONTACTS</div>
-            <button class="cta-button cta-pulse">Continue</button>
+    <div class="projects-grid">
+        <!-- PROJECT 1: Wild CTA Buttons -->
+        <div class="project-card">
+            <div class="card-image" style="background-color: #F77B2F; color: white;">CTA Buttons</div>
+            <div class="card-content">
+                <h2>Wild CTA Buttons</h2>
+                <p>A collection of 10 outrageously animated "Continue" buttons inspired by LingsCars, featuring wild animations and eye-catching effects.</p>
+                <a href="wild-cta-buttons.html">View Project</a>
+                <div class="creation-date">Created: March 7, 2025</div>
+            </div>
         </div>
 
-        <div class="button-wrapper">
-            <div class="button-title">MONTHLY LENSES</div>
-            <button class="cta-button cta-shake">Continue</button>
+        <!-- PROJECT 2: Add your next project here -->
+        <div class="project-card">
+            <div class="card-image">Project 2</div>
+            <div class="card-content">
+                <h2>Project Title</h2>
+                <p>Brief description of your project. What does it do? What techniques or technologies does it use?</p>
+                <a href="project2.html">View Project</a>
+                <div class="creation-date">Created: Date</div>
+            </div>
         </div>
 
-        <div class="button-wrapper">
-            <div class="button-title">COLOR CONTACTS</div>
-            <button class="cta-button cta-gradient">Continue</button>
+        <!-- PROJECT 3: Add your next project here -->
+        <div class="project-card">
+            <div class="card-image">Project 3</div>
+            <div class="card-content">
+                <h2>Project Title</h2>
+                <p>Brief description of your project. What does it do? What techniques or technologies does it use?</p>
+                <a href="project3.html">View Project</a>
+                <div class="creation-date">Created: Date</div>
+            </div>
         </div>
 
-        <div class="button-wrapper">
-            <div class="button-title">TORIC LENSES</div>
-            <button class="cta-button cta-text-shadow">Continue</button>
-        </div>
-
-        <div class="button-wrapper">
-            <div class="button-title">MULTIFOCAL DEALS</div>
-            <button class="cta-button cta-shape-shift">Continue</button>
-        </div>
-
-        <div class="button-wrapper">
-            <div class="button-title">LENS SOLUTION</div>
-            <button class="cta-button cta-emoji">Continue</button>
-        </div>
-
-        <div class="button-wrapper">
-            <div class="button-title">EYE EXAM SPECIAL</div>
-            <button class="cta-button cta-click-me">
-                Continue
-                <span class="hand">👆</span>
-            </button>
-        </div>
-
-        <div class="button-wrapper">
-            <div class="button-title">REBATE OFFER</div>
-            <button class="cta-button cta-breaking">Continue</button>
-        </div>
-
-        <div class="button-wrapper">
-            <div class="button-title">DESIGNER BRANDS</div>
-            <button class="cta-button cta-neon">Continue</button>
-        </div>
-    </div>
-
-    <div class="marquee">
-        <div class="marquee-content">
-            💥 MASSIVE SAVINGS! 💥 FREE SHIPPING! 💥 NEXT DAY DELIVERY! 💥 BARGAIN PRICES! 💥 1-800 CONTACTS MADNESS! 💥
-        </div>
-    </div>
-
-    <script>
-        // Add some particles to the pulsing button
-        document.querySelector('.cta-pulse').addEventListener('mousemove', function(e) {
-            const button = this;
-            const x = e.clientX - button.getBoundingClientRect().left;
-            const y = e.clientY - button.getBoundingClientRect().top;
-            
-            const particle = document.createElement('span');
-            particle.style.position = 'absolute';
-            particle.style.width = '10px';
-            particle.style.height = '10px';
-            particle.style.background = 'white';
-            particle.style.borderRadius = '50%';
-            particle.style.left = x + 'px';
-            particle.style.top = y + 'px';
-            particle.style.pointerEvents = 'none';
-            
-            button.appendChild(particle);
-            
-            setTimeout(() => {
-                particle.style.opacity = '0';
-                particle.style.transform = 'translate(' + (Math.random() * 80 - 40) + 'px, ' + (Math.random() * 80 - 40) + 'px)';
-                particle.style.transition = 'all 0.8s ease-out';
-                
-                setTimeout(() => {
-                    particle.remove();
-                }, 800);
-            }, 10);
-        });
-
-        // Add sound effect to all buttons
-        const buttons = document.querySelectorAll('.cta-button');
-        buttons.forEach(button => {
-            button.addEventListener('click', function() {
-                alert("WOW! YOU CLICKED ON A 1-800 CONTACTS BUTTON! GET READY FOR CRYSTAL CLEAR VISION! 👁️🎉");
-            });
-        });
-
-        // Add dynamic emoji rotation to the emoji button
-        const emojiButton = document.querySelector('.cta-emoji');
-        const emojis = ["👁️ 👓 💧 💯 👍", "💰 👁️ 💫 🔔 💎", "👓 🎯 💸 🎁 ⚡", "💯 ⭐ 👁️ 💧 🏆"];
-        let emojiIndex = 0;
+        <!-- ADD MORE PROJECTS: Copy and paste the project-card div and modify for each new project -->
         
-        setInterval(() => {
-            emojiIndex = (emojiIndex + 1) % emojis.length;
-            emojiButton.style.setProperty('--emoji-content', `"${emojis[emojiIndex]}"`);
-        }, 2000);
-    </script>
+    </div>
+
+    <footer>
+        <p>Created with the help of Claude AI • Last updated: March 7, 2025</p>
+    </footer>
+
 </body>
 </html>
