@@ -1,0 +1,2271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Order | The Awesome Contact Lens Store</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #0055FF;
+            --primary-alt: #4D7FFF;
+            --secondary: #FF3366;
+            --tertiary: #00F0B5;
+            --neutral-900: #0F172A;
+            --neutral-800: #1E293B;
+            --neutral-700: #334155;
+            --neutral-600: #475569;
+            --neutral-500: #64748B;
+            --neutral-400: #94A3B8;
+            --neutral-300: #CBD5E1;
+            --neutral-200: #E2E8F0;
+            --neutral-100: #F1F5F9;
+            --neutral-50: #F8FAFC;
+            --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+            --ease-in-out-quint: cubic-bezier(0.86, 0, 0.07, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        ::selection {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--neutral-800);
+            line-height: 1.6;
+            background-color: var(--neutral-50);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: clamp(3.5rem, 8vw, 5.5rem);
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+
+        h2 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            letter-spacing: -0.02em;
+        }
+
+        h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            letter-spacing: -0.01em;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: clamp(1rem, 1.2vw, 1.125rem);
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        a:hover {
+            color: var(--secondary);
+        }
+
+        button, .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.01em;
+            transition: all 0.5s var(--ease-out-expo);
+            cursor: pointer;
+            border: none;
+            outline: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: all 0.4s var(--ease-out-expo);
+            z-index: -1;
+        }
+
+        .btn:hover::after {
+            height: 100%;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-alt);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 85, 255, 0.2);
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--neutral-900);
+            border: 1px solid var(--neutral-300);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
+        }
+
+        .btn-accent {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-accent:hover {
+            background-color: #ff1a53;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(255, 51, 102, 0.2);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            position: relative;
+            padding: 8rem 0;
+        }
+
+        .section-title {
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-subtitle {
+            font-size: clamp(1.125rem, 1.5vw, 1.25rem);
+            color: var(--neutral-600);
+            max-width: 800px;
+            margin-bottom: 4rem;
+        }
+
+        .text-gradient {
+            background-image: linear-gradient(135deg, var(--primary) 0%, var(--tertiary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Custom Cursor */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transform: translate(-50%, -50%);
+            transition: transform 0.2s ease-out, width 0.3s ease-out, height 0.3s ease-out;
+        }
+
+        .cursor-grow {
+            transform: translate(-50%, -50%) scale(3);
+            background-color: white;
+            mix-blend-mode: difference;
+        }
+
+        /* Magnetic Elements */
+        .magnetic {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            transition: all 0.5s var(--ease-out-expo);
+            mix-blend-mode: difference;
+        }
+
+        header.scrolled {
+            padding: 1rem 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            mix-blend-mode: normal;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        header.scrolled .logo {
+            color: var(--neutral-900);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: white;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        header.scrolled .nav-links a {
+            color: var(--neutral-800);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: width 0.4s var(--ease-out-expo);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .header-cta {
+            color: white;
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.75rem 1.5rem;
+        }
+
+        header.scrolled .header-cta {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .header-cta:hover {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .menu-toggle {
+            display: none;
+            width: 30px;
+            height: 20px;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: white;
+            transition: all 0.3s var(--ease-out-expo);
+        }
+
+        header.scrolled .menu-toggle span {
+            background-color: var(--neutral-800);
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background-color: var(--neutral-900);
+            color: white;
+            padding: 8rem 0 4rem;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-eyeball {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #3d67ff 0%, #1a0dff 100%);
+            filter: blur(80px);
+            opacity: 0.3;
+            z-index: 0;
+            animation: float 8s infinite alternate var(--ease-in-out-quint);
+        }
+
+        .hero-subtitle {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.25rem, 2vw, 1.5rem);
+            color: var(--neutral-300);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .hero-scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--neutral-400);
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .hero-scroll-line {
+            width: 1px;
+            height: 50px;
+            background-color: var(--neutral-400);
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-scroll-line::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            animation: scrollDown 2s infinite;
+        }
+
+        @keyframes scrollDown {
+            0% {
+                transform: translateY(-100%);
+            }
+            50% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(100%);
+            }
+        }
+
+        .hero-image-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-image {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            border-radius: 20px;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translateZ(0);
+            transition: transform 0.4s var(--ease-out-expo);
+        }
+
+        .lens-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.8) 100%);
+            mix-blend-mode: overlay;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Journey Section */
+        .journey {
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .journey-blob {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--tertiary) 0%, rgba(0, 240, 181, 0) 70%);
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            opacity: 0.15;
+        }
+
+        .journey-blob-1 {
+            top: -200px;
+            left: -200px;
+        }
+
+        .journey-blob-2 {
+            bottom: -200px;
+            right: -200px;
+            background: radial-gradient(circle, var(--secondary) 0%, rgba(255, 51, 102, 0) 70%);
+        }
+
+        .section-header {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .journey-intro {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 4rem;
+        }
+
+        .journey-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .journey-card {
+            position: relative;
+            background-color: white;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: all 0.5s var(--ease-out-expo);
+            cursor: pointer;
+            height: 240px;
+        }
+
+        .journey-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.1);
+        }
+
+        .journey-card-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary);
+            z-index: 0;
+            transition: all 0.5s var(--ease-out-expo);
+        }
+
+        .journey-card:nth-child(2n) .journey-card-bg {
+            background-color: var(--secondary);
+        }
+
+        .journey-card:nth-child(3n) .journey-card-bg {
+            background-color: var(--tertiary);
+        }
+
+        .journey-card.active {
+            height: auto;
+        }
+
+        .journey-card-inner {
+            padding: 2.5rem;
+            position: relative;
+            z-index: 1;
+            background-color: white;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .journey-card.active .journey-card-inner {
+            height: auto;
+        }
+
+        .journey-card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .journey-card-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background-color: var(--neutral-100);
+            border-radius: 20px;
+            color: var(--primary);
+            flex-shrink: 0;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .journey-card:hover .journey-card-icon,
+        .journey-card.active .journey-card-icon {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .journey-card:nth-child(2n):hover .journey-card-icon,
+        .journey-card:nth-child(2n).active .journey-card-icon {
+            background-color: var(--secondary);
+        }
+
+        .journey-card:nth-child(3n):hover .journey-card-icon,
+        .journey-card:nth-child(3n).active .journey-card-icon {
+            background-color: var(--tertiary);
+        }
+
+        .journey-card-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .journey-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .journey-card-preview {
+            color: var(--neutral-600);
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            transition: all 0.3s var(--ease-out-expo);
+        }
+
+        .journey-card.active .journey-card-preview {
+            -webkit-line-clamp: unset;
+        }
+
+        .journey-card-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s var(--ease-out-expo);
+        }
+
+        .journey-card.active .journey-card-content {
+            max-height: 1000px;
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+            border-top: 1px solid var(--neutral-200);
+        }
+
+        .journey-card-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Process Section */
+        .process {
+            background-color: var(--neutral-50);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .process-marquee {
+            position: absolute;
+            top: 30%;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            z-index: 0;
+        }
+
+        .process-marquee-inner {
+            display: inline-block;
+            animation: marquee 80s linear infinite;
+        }
+
+        .process-marquee-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 200px;
+            font-weight: 700;
+            color: var(--neutral-100);
+            opacity: 0.8;
+            letter-spacing: -0.05em;
+            padding: 0 50px;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .process-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .process-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .process-steps {
+            position: relative;
+            margin-top: 4rem;
+        }
+
+        .process-line {
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            width: 1px;
+            height: calc(100% - 100px);
+            background-color: var(--neutral-300);
+            z-index: 0;
+        }
+
+        .process-step {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 3rem;
+            margin-bottom: 5rem;
+            position: relative;
+            z-index: 1;
+            opacity: 0.5;
+            transform: translateY(50px);
+            transition: all 0.6s var(--ease-out-expo);
+        }
+
+        .process-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .process-step.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .process-step-number {
+            width: 100px;
+            height: 100px;
+            border-radius: 30px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--neutral-800);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            position: relative;
+            z-index: 1;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .process-step.active .process-step-number {
+            background-color: var(--primary);
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 20px 40px rgba(0, 85, 255, 0.2);
+        }
+
+        .process-step-content {
+            padding: 2rem 0;
+        }
+
+        .process-step-title {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .process-step-description {
+            color: var(--neutral-600);
+            max-width: 500px;
+        }
+
+        /* Support Section */
+        .support {
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2.5rem;
+            position: relative;
+            z-index: 1;
+            margin-top: 4rem;
+        }
+
+        .support-card {
+            position: relative;
+            background-color: white;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: all 0.5s var(--ease-out-expo);
+            height: 100%;
+            padding: 3rem 2rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .support-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.1);
+        }
+
+        .support-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--tertiary) 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s var(--ease-out-expo);
+        }
+
+        .support-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .support-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--neutral-100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .support-card:hover .support-icon {
+            background-color: var(--primary);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .support-icon svg {
+            width: 32px;
+            height: 32px;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .support-card:hover .support-icon svg {
+            transform: rotateY(180deg);
+        }
+
+        .support-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .support-description {
+            color: var(--neutral-600);
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+
+        /* Horizontal Gallery Section */
+        .gallery {
+            background-color: var(--neutral-900);
+            color: white;
+            padding: 8rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-container {
+            position: relative;
+            padding: 4rem 0;
+        }
+
+        .gallery-track {
+            display: flex;
+            width: fit-content;
+            will-change: transform;
+        }
+
+        .gallery-item {
+            width: 400px;
+            height: 500px;
+            margin-right: 30px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s var(--ease-out-expo);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .gallery-item:hover .gallery-item-caption {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .gallery-progress {
+            height: 2px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.2);
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        .gallery-progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: white;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: width 0.1s linear;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonials-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .testimonial {
+            position: relative;
+            background-color: var(--neutral-50);
+            border-radius: 24px;
+            padding: 3rem;
+            transition: all 0.5s var(--ease-out-expo);
+            height: 100%;
+        }
+
+        .testimonial:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial::before {
+            content: '"';
+            position: absolute;
+            top: 2rem;
+            right: 2.5rem;
+            font-family: 'Georgia', serif;
+            font-size: 5rem;
+            line-height: 1;
+            color: var(--neutral-300);
+            z-index: 0;
+        }
+
+        .testimonial-content {
+            position: relative;
+            z-index: 1;
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--neutral-300);
+            overflow: hidden;
+        }
+
+        .testimonial-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .testimonial-info h4 {
+            font-size: 1.125rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .testimonial-info p {
+            color: var(--neutral-500);
+            font-size: 0.875rem;
+            margin-bottom: 0;
+        }
+
+        .testimonials-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .testimonials-nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            border: 1px solid var(--neutral-200);
+            color: var(--neutral-600);
+            cursor: pointer;
+            transition: all 0.3s var(--ease-out-expo);
+        }
+
+        .testimonials-nav-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .testimonials-nav-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* CTA Section */
+        .cta {
+            background-color: var(--neutral-900);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            padding: 10rem 0;
+        }
+
+        .cta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-content h2 {
+            font-size: clamp(3rem, 5vw, 4rem);
+            margin-bottom: 2rem;
+            line-height: 1.1;
+        }
+
+        .cta-content p {
+            font-size: 1.25rem;
+            color: var(--neutral-300);
+            margin-bottom: 3rem;
+            max-width: 500px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-white {
+            background-color: white;
+            color: var(--neutral-900);
+        }
+
+        .btn-white:hover {
+            background-color: var(--neutral-100);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-outline-white {
+            background-color: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-outline-white:hover {
+            border-color: white;
+            transform: translateY(-5px);
+        }
+
+        .cta-image {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            border-radius: 24px;
+            overflow: hidden;
+        }
+
+        .cta-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cta-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, transparent 50%);
+            opacity: 0.7;
+            z-index: 1;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--neutral-900);
+            color: white;
+            padding: 6rem 0 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-description {
+            color: var(--neutral-400);
+            margin-bottom: 2rem;
+            max-width: 350px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s var(--ease-out-expo);
+        }
+
+        .footer-social a:hover {
+            background-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .footer-social a svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--neutral-400);
+            transition: all 0.3s var(--ease-out-expo);
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-contact-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-contact-icon {
+            width: 20px;
+            color: var(--neutral-400);
+        }
+
+        .footer-contact-text {
+            color: var(--neutral-300);
+        }
+
+        .footer-bottom {
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .footer-copyright {
+            color: var(--neutral-500);
+            font-size: 0.875rem;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-bottom-links a {
+            color: var(--neutral-500);
+            font-size: 0.875rem;
+            transition: all 0.3s var(--ease-out-expo);
+        }
+
+        .footer-bottom-links a:hover {
+            color: white;
+        }
+
+        /* Floating Chat Widget */
+        .chat-widget {
+            position: fixed;
+            bottom: 2.5rem;
+            right: 2.5rem;
+            z-index: 1000;
+        }
+
+        .chat-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 85, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .chat-btn:hover {
+            transform: scale(1.1) rotate(15deg);
+        }
+
+        .chat-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-30px);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .hidden {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s var(--ease-out-expo);
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        .delay-5 { transition-delay: 0.5s; }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-image {
+                max-height: 500px;
+            }
+
+            .cta-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .testimonial-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .nav-links {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .journey-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+
+            .process-step {
+                grid-template-columns: 80px 1fr;
+                gap: 2rem;
+            }
+
+            .process-step-number {
+                width: 80px;
+                height: 80px;
+                font-size: 1.5rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 6rem 0;
+            }
+
+            .journey-intro {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 2rem;
+            }
+
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .process-step {
+                grid-template-columns: 60px 1fr;
+                gap: 1.5rem;
+            }
+
+            .process-step-number {
+                width: 60px;
+                height: 60px;
+                font-size: 1.25rem;
+                border-radius: 20px;
+            }
+
+            .process-line {
+                left: 30px;
+            }
+
+            .journey-card {
+                height: auto;
+            }
+
+            .journey-card-content {
+                max-height: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <a href="#" class="logo magnetic">The Awesome Contact Lens Store</a>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="#" class="magnetic">Shop</a></li>
+                        <li><a href="#" class="magnetic">Prescription</a></li>
+                        <li><a href="#" class="magnetic">Insurance</a></li>
+                        <li><a href="#" class="magnetic">Support</a></li>
+                    </ul>
+                </nav>
+                <button class="btn header-cta magnetic">Sign In</button>
+                <div class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <h1 class="hidden">Ordering contacts should be <span class="text-gradient">effortless</span></h1>
+                    <p class="hero-subtitle hidden delay-1">We'll meet you wherever you are in your journey and guide you to crystal clear vision.</p>
+                    <div class="hero-buttons hidden delay-2">
+                        <button class="btn btn-primary magnetic">Start Your Order</button>
+                        <button class="btn btn-secondary magnetic">Learn How It Works</button>
+                    </div>
+                </div>
+                <div class="hero-image-container hidden delay-3">
+                    <div class="hero-image">
+                        <img src="/api/placeholder/600/600" alt="Person wearing contact lenses">
+                        <div class="lens-effect"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-eyeball"></div>
+        <div class="hero-scroll-indicator">
+            <span>Scroll</span>
+            <div class="hero-scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Journey Section -->
+    <section class="journey section">
+        <div class="container">
+            <div class="journey-intro">
+                <div class="section-header hidden">
+                    <h2>Where are you in your journey?</h2>
+                    <p class="section-subtitle">No matter your starting point, ordering contacts is easier than you think. Select your scenario below and we'll guide you forward.</p>
+                </div>
+                <div class="hidden delay-1">
+                    <button class="btn btn-primary magnetic">I need help</button>
+                </div>
+            </div>
+
+            <div class="journey-grid">
+                <!-- Journey Card 1 -->
+                <div class="journey-card hidden" data-journey="know-brand">
+                    <div class="journey-card-bg"></div>
+                    <div class="journey-card-inner">
+                        <div class="journey-card-header">
+                            <div class="journey-card-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3>I Know My Brand & Prescription</h3>
+                                <p class="journey-card-preview">You know exactly what you need and want to reorder quickly.</p>
+                            </div>
+                        </div>
+                        <div class="journey-card-content">
+                            <p>Great! This is the fastest way to order. Simply:</p>
+                            <ul>
+                                <li>Search for your brand</li>
+                                <li>Enter your prescription details</li>
+                                <li>Proceed to checkout</li>
+                            </ul>
+                            <div class="journey-card-actions">
+                                <button class="btn btn-primary magnetic">Find My Brand</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Journey Card 2 -->
+                <div class="journey-card hidden delay-1" data-journey="have-prescription">
+                    <div class="journey-card-bg"></div>
+                    <div class="journey-card-inner">
+                        <div class="journey-card-header">
+                            <div class="journey-card-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3>I Have My Prescription</h3>
+                                <p class="journey-card-preview">You have your prescription but aren't sure which brand to choose.</p>
+                            </div>
+                        </div>
+                        <div class="journey-card-content">
+                            <p>No problem! We can help you find the perfect contacts:</p>
+                            <ul>
+                                <li>Upload a photo of your prescription</li>
+                                <li>Our experts will recommend brands that match</li>
+                                <li>Choose the option that works best for you</li>
+                            </ul>
+                            <div class="journey-card-actions">
+                                <button class="btn btn-primary magnetic">Upload Prescription</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Journey Card 3 -->
+                <div class="journey-card hidden delay-2" data-journey="have-box">
+                    <div class="journey-card-bg"></div>
+                    <div class="journey-card-inner">
+                        <div class="journey-card-header">
+                            <div class="journey-card-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3>I Have My Contact Lens Box</h3>
+                                <p class="journey-card-preview">You have your current box but not your prescription details.</p>
+                            </div>
+                        </div>
+                        <div class="journey-card-content">
+                            <p>Perfect! Your box has all the information we need:</p>
+                            <ul>
+                                <li>Enter the brand name from your box</li>
+                                <li>Input the prescription details printed on the box</li>
+                                <li>We'll verify your prescription with your doctor</li>
+                            </ul>
+                            <div class="journey-card-actions">
+                                <button class="btn btn-primary magnetic">Enter Box Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Journey Card 4 -->
+                <div class="journey-card hidden delay-3" data-journey="no-prescription">
+                    <div class="journey-card-bg"></div>
+                    <div class="journey-card-inner">
+                        <div class="journey-card-header">
+                            <div class="journey-card-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3>I Don't Have My Prescription</h3>
+                                <p class="journey-card-preview">You need contacts but don't have your prescription details.</p>
+                            </div>
+                        </div>
+                        <div class="journey-card-content">
+                            <p>Don't worry! We can help you get your prescription:</p>
+                            <ul>
+                                <li>Provide your doctor's information</li>
+                                <li>We'll contact them for your prescription</li>
+                                <li>Once verified, you can complete your order</li>
+                            </ul>
+                            <p>Or try our ExpressExam to renew your prescription online!</p>
+                            <div class="journey-card-actions">
+                                <button class="btn btn-primary magnetic">Doctor Lookup</button>
+                                <button class="btn btn-secondary magnetic">Try ExpressExam</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Journey Card 5 -->
+                <div class="journey-card hidden delay-4" data-journey="insurance">
+                    <div class="journey-card-bg"></div>
+                    <div class="journey-card-inner">
+                        <div class="journey-card-header">
+                            <div class="journey-card-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2zM10 8.5a.5.5 0 11-1 0 .5.5 0 011 0zm5 5a.5.5 0 11-1 0 .5.5 0 011 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3>I Want to Use Insurance</h3>
+                                <p class="journey-card-preview">You have vision insurance and want to apply benefits to your order.</p>
+                            </div>
+                        </div>
+                        <div class="journey-card-content">
+                            <p>We work with most major insurance providers:</p>
+                            <ul>
+                                <li>Enter your insurance details</li>
+                                <li>We'll verify your benefits</li>
+                                <li>Your discount will be applied at checkout</li>
+                            </ul>
+                            <div class="journey-card-actions">
+                                <button class="btn btn-primary magnetic">Enter Insurance</button>
+                                <button class="btn btn-secondary magnetic">Check Coverage</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="journey-blob journey-blob-1"></div>
+        <div class="journey-blob journey-blob-2"></div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process section">
+        <div class="process-marquee">
+            <div class="process-marquee-inner">
+                <span class="process-marquee-text">Seamless Ordering Experience</span>
+                <span class="process-marquee-text">Seamless Ordering Experience</span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="process-content">
+                <div class="process-container">
+                    <div class="section-header text-center hidden">
+                        <h2>The Journey to Clear Vision</h2>
+                        <p class="section-subtitle">No matter where you start, here's how your path to new contacts will unfold.</p>
+                    </div>
+
+                    <div class="process-steps">
+                        <div class="process-line"></div>
+
+                        <!-- Step 1 -->
+                        <div class="process-step hidden">
+                            <div class="process-step-number">1</div>
+                            <div class="process-step-content">
+                                <h3 class="process-step-title">Find Your Perfect Contacts</h3>
+                                <p class="process-step-description">Search by brand or let us help you find the right contacts for your prescription. Not sure where to start? We'll guide you through all available options.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="process-step hidden delay-1">
+                            <div class="process-step-number">2</div>
+                            <div class="process-step-content">
+                                <h3 class="process-step-title">Prescription Verification</h3>
+                                <p class="process-step-description">We'll verify your prescription with your doctor (required by law). Don't have your prescription? We'll help you locate it or explore renewal options through our ExpressExam service.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="process-step hidden delay-2">
+                            <div class="process-step-number">3</div>
+                            <div class="process-step-content">
+                                <h3 class="process-step-title">Review Your Order</h3>
+                                <p class="process-step-description">Confirm your contacts, quantity, insurance benefits, and shipping details. We'll walk you through any insurance savings and subscription options to save even more.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div class="process-step hidden delay-3">
+                            <div class="process-step-number">4</div>
+                            <div class="process-step-content">
+                                <h3 class="process-step-title">Secure Checkout</h3>
+                                <p class="process-step-description">Pay with your preferred method and choose standard or express shipping. All transactions are protected with enterprise-grade security for your peace of mind.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 5 -->
+                        <div class="process-step hidden delay-4">
+                            <div class="process-step-number">5</div>
+                            <div class="process-step-content">
+                                <h3 class="process-step-title">Contacts Delivered</h3>
+                                <p class="process-step-description">Your contacts arrive at your door, backed by our 100% satisfaction guarantee. Not completely satisfied? We'll make it right, no questions asked.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Horizontal Gallery Section -->
+    <section class="gallery">
+        <div class="container">
+            <div class="section-header text-center hidden">
+                <h2>Seeing is believing</h2>
+                <p class="section-subtitle">Our customers love how easy it is to order contacts online. See their experiences.</p>
+            </div>
+        </div>
+
+        <div class="gallery-container hidden delay-1">
+            <div class="gallery-track">
+                <div class="gallery-item">
+                    <img src="/api/placeholder/400/500" alt="Customer Sarah ordering contacts">
+                    <div class="gallery-item-caption">
+                        <h3>First-time ordering</h3>
+                        <p>"I was nervous about ordering online, but it was so easy!"</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/400/500" alt="Customer Michael uploading prescription">
+                    <div class="gallery-item-caption">
+                        <h3>Prescription upload</h3>
+                        <p>"Uploading my prescription was a breeze."</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/400/500" alt="Customer Jennifer using insurance">
+                    <div class="gallery-item-caption">
+                        <h3>Insurance benefits applied</h3>
+                        <p>"I saved over 50% using my insurance benefits!"</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/400/500" alt="Customer David receiving package">
+                    <div class="gallery-item-caption">
+                        <h3>Fast delivery</h3>
+                        <p>"My contacts arrived faster than expected."</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/400/500" alt="Customer Emma on video chat">
+                    <div class="gallery-item-caption">
+                        <h3>Video consultation</h3>
+                        <p>"The video chat helped me choose the right brand."</p>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-progress">
+                <div class="gallery-progress-bar"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Section -->
+    <section class="support section">
+        <div class="container">
+            <div class="section-header text-center hidden">
+                <h2>Expert Support at Every Step</h2>
+                <p class="section-subtitle">Have questions? Our vision experts are ready to help you 24/7 through your preferred channel.</p>
+            </div>
+
+            <div class="support-grid">
+                <!-- Support Option 1 -->
+                <div class="support-card hidden">
+                    <div class="support-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                    </div>
+                    <h3 class="support-title">Phone Support</h3>
+                    <p class="support-description">Speak with our knowledgeable representatives who can guide you through the ordering process, answer questions, and provide personalized assistance.</p>
+                    <button class="btn btn-primary magnetic">Call 1-800-XXX-XXXX</button>
+                </div>
+
+                <!-- Support Option 2 -->
+                <div class="support-card hidden delay-1">
+                    <div class="support-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                    </div>
+                    <h3 class="support-title">Live Chat</h3>
+                    <p class="support-description">Chat with our team in real-time to get instant answers to your questions, whether you're browsing or need help completing your order.</p>
+                    <button class="btn btn-primary magnetic">Start Chat</button>
+                </div>
+
+                <!-- Support Option 3 -->
+                <div class="support-card hidden delay-2">
+                    <div class="support-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="support-title">Video Call</h3>
+                    <p class="support-description">Schedule a face-to-face video call for personalized assistance with your order, prescription questions, or any other concerns.</p>
+                    <button class="btn btn-primary magnetic">Schedule Video Call</button>
+                </div>
+
+                <!-- Support Option 4 -->
+                <div class="support-card hidden delay-3">
+                    <div class="support-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="support-title">Email Support</h3>
+                    <p class="support-description">Send us an email with your questions or concerns, and we'll get back to you within 24 hours with a detailed, personalized response.</p>
+                    <button class="btn btn-primary magnetic">Email Support</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials section">
+        <div class="container">
+            <div class="testimonials-header">
+                <h2 class="hidden">What Our Customers Say</h2>
+                <p class="section-subtitle hidden delay-1">Join thousands of happy customers who make ordering contacts a breeze.</p>
+            </div>
+
+            <div class="testimonials-container">
+                <div class="testimonial-grid">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial hidden">
+                        <div class="testimonial-content">
+                            I was nervous about ordering contacts online for the first time, but they made it so easy! They verified my prescription with my doctor, and I had my contacts delivered in just a few days. Will definitely order again!
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">
+                                <img src="/api/placeholder/50/50" alt="Sarah M.">
+                            </div>
+                            <div class="testimonial-info">
+                                <h4>Sarah M.</h4>
+                                <p>First-time customer</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial hidden delay-1">
+                        <div class="testimonial-content">
+                            I didn't have my prescription handy, but customer service helped me track it down through my doctor. The whole process was much easier than I expected, and I saved a ton compared to buying from my eye doctor.
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">
+                                <img src="/api/placeholder/50/50" alt="Michael T.">
+                            </div>
+                            <div class="testimonial-info">
+                                <h4>Michael T.</h4>
+                                <p>Customer since 2019</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial hidden delay-2">
+                        <div class="testimonial-content">
+                            I love being able to use my insurance benefits online! The checkout process was simple, and I could see exactly how much my insurance covered. Definitely recommend to anyone who wants to save time and money.
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">
+                                <img src="/api/placeholder/50/50" alt="Jennifer K.">
+                            </div>
+                            <div class="testimonial-info">
+                                <h4>Jennifer K.</h4>
+                                <p>Customer since 2021</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonials-nav hidden delay-3">
+                    <button class="testimonials-nav-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    <button class="testimonials-nav-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-grid">
+                <div class="cta-content hidden">
+                    <h2>Ready to experience clarity?</h2>
+                    <p>Start your order now and experience the easiest way to buy contact lenses online. Your eyes will thank you.</p>
+                    <div class="cta-buttons">
+                        <button class="btn btn-white magnetic">Start Your Order</button>
+                        <button class="btn btn-outline-white magnetic">Contact Support</button>
+                    </div>
+                </div>
+                <div class="cta-image hidden delay-2">
+                    <img src="/api/placeholder/600/500" alt="Happy customer with clear vision">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">The Awesome Contact Lens Store</div>
+                    <p class="footer-description">The easy way to order contact lenses online. Fast shipping, great prices, and excellent customer service.</p>
+                    <div class="footer-social">
+                        <a href="#" class="magnetic">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        </a>
+                        <a href="#" class="magnetic">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        </a>
+                        <a href="#" class="magnetic">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Find Your Brand</a></li>
+                        <li><a href="#">Upload Prescription</a></li>
+                        <li><a href="#">Reorder Contacts</a></li>
+                        <li><a href="#">ExpressExam</a></li>
+                        <li><a href="#">Insurance</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Customer Service</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Shipping Information</a></li>
+                        <li><a href="#">Returns & Exchanges</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Track Your Order</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                            </svg>
+                        </div>
+                        <div class="footer-contact-text">1-800-XXX-XXXX</div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <div class="footer-contact-text">support@theawesomecontactlensstore.com</div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <div class="footer-contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div class="footer-contact-text">24/7 Customer Support</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-copyright">© 2025 The Awesome Contact Lens Store. All rights reserved.</div>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Accessibility</a>
+                    <a href="#">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Chat Widget -->
+    <div class="chat-widget">
+        <div class="chat-btn magnetic">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+        </div>
+    </div>
+
+    <script>
+        // Reveal animations on scroll
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.hidden').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Show hero elements immediately
+            setTimeout(() => {
+                document.querySelectorAll('.hero .hidden').forEach(el => {
+                    el.classList.add('visible');
+                });
+            }, 300);
+
+            // Process steps animation
+            const processSteps = document.querySelectorAll('.process-step');
+            const processObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+
+            processSteps.forEach(step => {
+                processObserver.observe(step);
+            });
+
+            // Journey Card Interaction
+            const journeyCards = document.querySelectorAll('.journey-card');
+            
+            journeyCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    // Close all other cards
+                    journeyCards.forEach(c => {
+                        if (c !== card) {
+                            c.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current card
+                    card.classList.toggle('active');
+                });
+            });
+
+            // Custom cursor
+            const cursor = document.querySelector('.custom-cursor');
+            const magneticElements = document.querySelectorAll('.magnetic');
+
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = `${e.clientX}px`;
+                cursor.style.top = `${e.clientY}px`;
+            });
+
+            magneticElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.classList.add('cursor-grow');
+                });
+
+                el.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('cursor-grow');
+                });
+
+                el.addEventListener('mousemove', (e) => {
+                    const rect = el.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    
+                    el.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+                });
+
+                el.addEventListener('mouseleave', () => {
+                    el.style.transform = 'translate(0, 0)';
+                });
+            });
+
+            // Sticky Header
+            const header = document.querySelector('header');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Horizontal Gallery Scroll
+            const gallery = document.querySelector('.gallery-track');
+            const progressBar = document.querySelector('.gallery-progress-bar');
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            let maxScroll;
+            
+            // Initialize drag scroll
+            if (gallery) {
+                maxScroll = gallery.scrollWidth - gallery.clientWidth;
+                
+                gallery.addEventListener('mousedown', (e) => {
+                    isDown = true;
+                    gallery.style.cursor = 'grabbing';
+                    startX = e.pageX - gallery.offsetLeft;
+                    scrollLeft = gallery.scrollLeft;
+                });
+
+                gallery.addEventListener('mouseleave', () => {
+                    isDown = false;
+                    gallery.style.cursor = 'grab';
+                });
+
+                gallery.addEventListener('mouseup', () => {
+                    isDown = false;
+                    gallery.style.cursor = 'grab';
+                });
+
+                gallery.addEventListener('mousemove', (e) => {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    const x = e.pageX - gallery.offsetLeft;
+                    const walk = (x - startX) * 2;
+                    gallery.scrollLeft = scrollLeft - walk;
+                    updateProgressBar();
+                });
+
+                gallery.addEventListener('scroll', () => {
+                    updateProgressBar();
+                });
+
+                function updateProgressBar() {
+                    const scrollPercentage = (gallery.scrollLeft / maxScroll) * 100;
+                    progressBar.style.width = `${scrollPercentage}%`;
+                }
+            }
+
+            // Mobile Menu Toggle
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            if (menuToggle) {
+                menuToggle.addEventListener('click', () => {
+                    menuToggle.classList.toggle('active');
+                    navLinks.classList.toggle('active');
+                });
+            }
+
+            // 3D Image Tilt Effect
+            const heroImage = document.querySelector('.hero-image');
+
+            if (heroImage) {
+                heroImage.addEventListener('mousemove', (e) => {
+                    const { left, top, width, height } = heroImage.getBoundingClientRect();
+                    const x = (e.clientX - left) / width;
+                    const y = (e.clientY - top) / height;
+                    
+                    const rotateX = 10 - y * 20;
+                    const rotateY = x * 20 - 10;
+                    
+                    heroImage.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                    
+                    const img = heroImage.querySelector('img');
+                    img.style.transform = `translateZ(50px) scale(1.1)`;
+                });
+
+                heroImage.addEventListener('mouseleave', () => {
+                    heroImage.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+                    const img = heroImage.querySelector('img');
+                    img.style.transform = 'translateZ(0) scale(1)';
+                });
+            }
+
+            // Smooth Scroll for Anchor Links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const target = document.querySelector(this.getAttribute('href'));
+                    
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
