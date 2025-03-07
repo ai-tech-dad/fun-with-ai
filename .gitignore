@@ -1,0 +1,53 @@
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+.Spotlight-V100
+.Trashes
+
+# Editor folders and files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.project
+.settings/
+*.swp
+*.swo
+*~
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories (if you start using libraries)
+node_modules/
+jspm_packages/
+bower_components/
+
+# Build outputs (if you start using build tools)
+dist/
+build/
+out/
+
+# Environment variables and secrets (very important!)
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+*.pem
+config.js
+secrets.json
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+.tmp/
+
+# Other common exclusions
+.sass-cache/
+coverage/
+.nyc_output/
