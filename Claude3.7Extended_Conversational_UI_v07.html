@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OptiLens | Premium Contact Lenses</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles */
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
+            --text-color: #333;
+            --light-text: #717171;
+            --bg-color: #f8f9fa;
+            --white: #ffffff;
+            --border-radius: 16px;
+            --box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* Question section styles */
+        .question-section {
+            flex: 1;
+            padding: 4rem;
+            background-color: var(--white);
+            overflow-y: auto;
+            transition: var(--transition);
+        }
+        
+        .question-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            margin-right: 10px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-icon::after {
+            content: "";
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background-color: var(--white);
+            border-radius: 50%;
+        }
+        
+        .question {
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            display: none;
+        }
+        
+        .question.active {
+            opacity: 1;
+            transform: translateY(0);
+            display: block;
+        }
+        
+        .question h2 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+        
+        .question p {
+            font-size: 1.1rem;
+            color: var(--light-text);
+            margin-bottom: 2rem;
+        }
+        
+        .input-group {
+            margin-bottom: 2rem;
+        }
+        
+        input, select, button {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            font-size: 1.1rem;
+            border: 2px solid #e9ecef;
+            border-radius: var(--border-radius);
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            margin-top: 1rem;
+            transition: var(--transition);
+        }
+        
+        button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.2);
+        }
+        
+        /* Upload section */
+        .upload-area {
+            border: 2px dashed #e9ecef;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 1rem;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+        
+        .upload-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        /* Order summary styles */
+        .order-section {
+            width: 450px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+        }
+        
+        .order-container {
+            background-color: var(--secondary-color);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .order-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+        
+        .order-details {
+            flex-grow: 1;
+        }
+        
+        .order-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .order-item-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+        }
+        
+        .order-item-value {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        .order-summary {
+            margin-top: auto;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        /* Progress indicator */
+        .progress-container {
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin-bottom: 2rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: white;
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+        
+        /* Options grid */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .option-card {
+            border: 2px solid #e9ecef;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            background-color: white;
+            text-align: center;
+        }
+        
+        .option-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .option-card.selected {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        .option-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .option-title {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .option-description {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .question-section {
+                padding: 2rem;
+                order: 2;
+            }
+            
+            .order-section {
+                width: 100%;
+                padding: 2rem;
+                order: 1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .question h2 {
+                font-size: 1.8rem;
+            }
+            
+            .question-section {
+                padding: 1.5rem;
+            }
+        }
+        
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        .slide-up {
+            animation: slideUp 0.5s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Question Section -->
+        <section class="question-section">
+            <div class="question-container">
+                <div class="logo"><div class="logo-icon"></div>OptiLens</div>
+                
+                <!-- Question 1: Name -->
+                <div class="question active" id="question-1">
+                    <h2>Welcome! Let's start with your name</h2>
+                    <p>We'll use this for your account and order.</p>
+                    
+                    <div class="input-group">
+                        <input type="text" id="first-name" placeholder="First name" autocomplete="given-name">
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="text" id="last-name" placeholder="Last name" autocomplete="family-name">
+                    </div>
+                    
+                    <button id="name-next" class="next-button">Continue</button>
+                </div>
+                
+                <!-- Question 2: Email -->
+                <div class="question" id="question-2">
+                    <h2>What's your email address?</h2>
+                    <p>We'll send your order confirmation here.</p>
+                    
+                    <div class="input-group">
+                        <input type="email" id="email" placeholder="Email address" autocomplete="email">
+                    </div>
+                    
+                    <button id="email-next" class="next-button">Continue</button>
+                </div>
+                
+                <!-- Question 3: Brand -->
+                <div class="question" id="question-3">
+                    <h2>What brand of contact lenses do you use?</h2>
+                    <p>Select your preferred brand or type.</p>
+                    
+                    <div class="options-grid">
+                        <div class="option-card" data-brand="Acuvue">
+                            <div class="option-icon">👁️</div>
+                            <div class="option-title">Acuvue</div>
+                            <div class="option-description">Johnson & Johnson</div>
+                        </div>
+                        
+                        <div class="option-card" data-brand="Biofinity">
+                            <div class="option-icon">👁️</div>
+                            <div class="option-title">Biofinity</div>
+                            <div class="option-description">CooperVision</div>
+                        </div>
+                        
+                        <div class="option-card" data-brand="Air Optix">
+                            <div class="option-icon">👁️</div>
+                            <div class="option-title">Air Optix</div>
+                            <div class="option-description">Alcon</div>
+                        </div>
+                        
+                        <div class="option-card" data-brand="Dailies">
+                            <div class="option-icon">👁️</div>
+                            <div class="option-title">Dailies</div>
+                            <div class="option-description">Alcon</div>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <select id="other-brand">
+                            <option value="" selected disabled>Other brand (select)</option>
+                            <option value="Bausch & Lomb">Bausch & Lomb</option>
+                            <option value="SofLens">SofLens</option>
+                            <option value="Clariti">Clariti</option>
+                            <option value="MyDay">MyDay</option>
+                            <option value="PureVision">PureVision</option>
+                        </select>
+                    </div>
+                    
+                    <button id="brand-next" class="next-button">Continue</button>
+                </div>
+                
+                <!-- Question 4: Prescription Method -->
+                <div class="question" id="question-4">
+                    <h2>How would you like to provide your prescription?</h2>
+                    <p>Choose the method that's most convenient for you.</p>
+                    
+                    <div class="options-grid">
+                        <div class="option-card" data-method="upload">
+                            <div class="option-icon">📄</div>
+                            <div class="option-title">Upload a prescription</div>
+                            <div class="option-description">PDF or image of your prescription</div>
+                        </div>
+                        
+                        <div class="option-card" data-method="photo">
+                            <div class="option-icon">📱</div>
+                            <div class="option-title">Take a photo</div>
+                            <div class="option-description">Use your camera to capture your prescription</div>
+                        </div>
+                        
+                        <div class="option-card" data-method="box">
+                            <div class="option-icon">📦</div>
+                            <div class="option-title">Scan your box</div>
+                            <div class="option-description">Use your camera to scan your contact lens box</div>
+                        </div>
+                        
+                        <div class="option-card" data-method="manual">
+                            <div class="option-icon">⌨️</div>
+                            <div class="option-title">Enter manually</div>
+                            <div class="option-description">Type in your prescription details</div>
+                        </div>
+                    </div>
+                    
+                    <button id="method-next" class="next-button">Continue</button>
+                </div>
+                
+                <!-- Question 5: Upload Prescription (conditional) -->
+                <div class="question" id="question-5-upload">
+                    <h2>Upload your prescription</h2>
+                    <p>We accept PDF, JPG, and PNG files.</p>
+                    
+                    <div class="upload-area" id="upload-area">
+                        <div class="upload-icon">📁</div>
+                        <p>Drag and drop your prescription here</p>
+                        <p>or click to browse files</p>
+                        <input type="file" id="prescription-file" style="display: none;">
+                    </div>
+                    
+                    <p id="file-name" style="display: none; margin-bottom: 1rem;"></p>
+                    
+                    <button id="upload-next" class="next-button">Continue</button>
+                </div>
+                
+                <!-- Question 5: Take Photo (conditional) -->
+                <div class="question" id="question-5-photo">
+                    <h2>Take a photo of your prescription</h2>
+                    <p>Make sure it's well-lit and all text is visible.</p>
+                    
+                    <div class="upload-area" id="camera-area">
+                        <div class="upload-icon">📸</div>
+                        <p>Click to take a photo</p>
+                        <video id="camera-preview" style="display: none; width: 100%; border-radius: 8px; margin-top: 1rem;"></video>
+                    </div>
+                    
+                    <button id="photo-next" class="next-button">Continue</button>
+                </div>
+                
+                <!-- Question 5: Scan Box (conditional) -->
+                <div class="question" id="question-5-box">
+                    <h2>Scan your contact lens box</h2>
+                    <p>Position your camera to capture the side with prescription details.</p>
+                    
+                    <div class="upload-area" id="box-scan-area">
+                        <div class="upload-icon">📦</div>
+                        <p>Click to scan your box</p>
+                        <video id="box-preview" style="display: none; width: 100%; border-radius: 8px; margin-top: 1rem;"></video>
+                    </div>
+                    
+                    <button id="box-next" class="next-button">Continue</button>
+                </div>
+                
+                <!-- Question 5: Manual Entry (conditional) -->
+                <div class="question" id="question-5-manual">
+                    <h2>Enter your prescription details</h2>
+                    <p>Please provide prescription information for both eyes.</p>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <h3 style="margin-bottom: 1rem; font-size: 1.2rem;">Right Eye (OD)</h3>
+                        
+                        <div class="input-group">
+                            <label for="od-power">Power (SPH)</label>
+                            <select id="od-power" class="prescription-input">
+                                <option value="" selected disabled>Select power</option>
+                                <option value="-0.50">-0.50</option>
+                                <option value="-0.75">-0.75</option>
+                                <option value="-1.00">-1.00</option>
+                                <option value="-1.25">-1.25</option>
+                                <option value="-1.50">-1.50</option>
+                                <option value="-1.75">-1.75</option>
+                                <option value="-2.00">-2.00</option>
+                                <option value="-2.25">-2.25</option>
+                                <option value="-2.50">-2.50</option>
+                                <option value="-2.75">-2.75</option>
+                                <option value="-3.00">-3.00</option>
+                                <option value="-3.25">-3.25</option>
+                                <option value="-3.50">-3.50</option>
+                                <option value="-3.75">-3.75</option>
+                                <option value="-4.00">-4.00</option>
+                                <option value="-4.25">-4.25</option>
+                                <option value="-4.50">-4.50</option>
+                                <option value="-4.75">-4.75</option>
+                                <option value="-5.00">-5.00</option>
+                                <option value="-5.25">-5.25</option>
+                                <option value="-5.50">-5.50</option>
+                                <option value="-5.75">-5.75</option>
+                                <option value="-6.00">-6.00</option>
+                                <option value="+0.50">+0.50</option>
+                                <option value="+0.75">+0.75</option>
+                                <option value="+1.00">+1.00</option>
+                                <option value="+1.25">+1.25</option>
+                                <option value="+1.50">+1.50</option>
+                                <option value="+1.75">+1.75</option>
+                                <option value="+2.00">+2.00</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="od-bc">Base Curve (BC)</label>
+                            <select id="od-bc" class="prescription-input">
+                                <option value="" selected disabled>Select base curve</option>
+                                <option value="8.4">8.4</option>
+                                <option value="8.5">8.5</option>
+                                <option value="8.6">8.6</option>
+                                <option value="8.7">8.7</option>
+                                <option value="8.8">8.8</option>
+                                <option value="8.9">8.9</option>
+                                <option value="9.0">9.0</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="od-diameter">Diameter (DIA)</label>
+                            <select id="od-diameter" class="prescription-input">
+                                <option value="" selected disabled>Select diameter</option>
+                                <option value="13.8">13.8</option>
+                                <option value="14.0">14.0</option>
+                                <option value="14.2">14.2</option>
+                                <option value="14.5">14.5</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <h3 style="margin-bottom: 1rem; font-size: 1.2rem;">Left Eye (OS)</h3>
+                        
+                        <div class="input-group">
+                            <label for="os-power">Power (SPH)</label>
+                            <select id="os-power" class="prescription-input">
+                                <option value="" selected disabled>Select power</option>
+                                <option value="-0.50">-0.50</option>
+                                <option value="-0.75">-0.75</option>
+                                <option value="-1.00">-1.00</option>
+                                <option value="-1.25">-1.25</option>
+                                <option value="-1.50">-1.50</option>
+                                <option value="-1.75">-1.75</option>
+                                <option value="-2.00">-2.00</option>
+                                <option value="-2.25">-2.25</option>
+                                <option value="-2.50">-2.50</option>
+                                <option value="-2.75">-2.75</option>
+                                <option value="-3.00">-3.00</option>
+                                <option value="-3.25">-3.25</option>
+                                <option value="-3.50">-3.50</option>
+                                <option value="-3.75">-3.75</option>
+                                <option value="-4.00">-4.00</option>
+                                <option value="-4.25">-4.25</option>
+                                <option value="-4.50">-4.50</option>
+                                <option value="-4.75">-4.75</option>
+                                <option value="-5.00">-5.00</option>
+                                <option value="-5.25">-5.25</option>
+                                <option value="-5.50">-5.50</option>
+                                <option value="-5.75">-5.75</option>
+                                <option value="-6.00">-6.00</option>
+                                <option value="+0.50">+0.50</option>
+                                <option value="+0.75">+0.75</option>
+                                <option value="+1.00">+1.00</option>
+                                <option value="+1.25">+1.25</option>
+                                <option value="+1.50">+1.50</option>
+                                <option value="+1.75">+1.75</option>
+                                <option value="+2.00">+2.00</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="os-bc">Base Curve (BC)</label>
+                            <select id="os-bc" class="prescription-input">
+                                <option value="" selected disabled>Select base curve</option>
+                                <option value="8.4">8.4</option>
+                                <option value="8.5">8.5</option>
+                                <option value="8.6">8.6</option>
+                                <option value="8.7">8.7</option>
+                                <option value="8.8">8.8</option>
+                                <option value="8.9">8.9</option>
+                                <option value="9.0">9.0</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="os-diameter">Diameter (DIA)</label>
+                            <select id="os-diameter" class="prescription-input">
+                                <option value="" selected disabled>Select diameter</option>
+                                <option value="13.8">13.8</option>
+                                <option value="14.0">14.0</option>
+                                <option value="14.2">14.2</option>
+                                <option value="14.5">14.5</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button id="manual-next" class="next-button">Continue</button>
+                </div>
+                
+                <!-- Question 6: Quantity -->
+                <div class="question" id="question-6">
+                    <h2>How many boxes would you like to order?</h2>
+                    <p>Most customers order a 6-month supply (6 boxes).</p>
+                    
+                    <div class="options-grid">
+                        <div class="option-card" data-quantity="2">
+                            <div class="option-title">2 Boxes</div>
+                            <div class="option-description">2-month supply</div>
+                            <div style="font-weight: 600; margin-top: 1rem; color: var(--primary-color);">$39.99/box</div>
+                        </div>
+                        
+                        <div class="option-card" data-quantity="4">
+                            <div class="option-title">4 Boxes</div>
+                            <div class="option-description">4-month supply</div>
+                            <div style="font-weight: 600; margin-top: 1rem; color: var(--primary-color);">$36.99/box</div>
+                        </div>
+                        
+                        <div class="option-card selected" data-quantity="6">
+                            <div class="option-title">6 Boxes</div>
+                            <div class="option-description">6-month supply</div>
+                            <div style="font-weight: 600; margin-top: 1rem; color: var(--primary-color);">$34.99/box</div>
+                            <div style="background-color: #e6f7ff; color: var(--primary-color); padding: 0.3rem 0.6rem; border-radius: 4px; display: inline-block; margin-top: 0.5rem; font-size: 0.8rem;">Most Popular</div>
+                        </div>
+                        
+                        <div class="option-card" data-quantity="12">
+                            <div class="option-title">12 Boxes</div>
+                            <div class="option-description">12-month supply</div>
+                            <div style="font-weight: 600; margin-top: 1rem; color: var(--primary-color);">$29.99/box</div>
+                            <div style="background-color: #e6f7ff; color: var(--primary-color); padding: 0.3rem 0.6rem; border-radius: 4px; display: inline-block; margin-top: 0.5rem; font-size: 0.8rem;">Best Value</div>
+                        </div>
+                    </div>
+                    
+                    <button id="quantity-next" class="next-button">Continue</button>
+                </div>
+                
+                <!-- Question 7: Shipping -->
+                <div class="question" id="question-7">
+                    <h2>Choose your shipping method</h2>
+                    <p>Select the option that works best for you.</p>
+                    
+                    <div class="options-grid">
+                        <div class="option-card" data-shipping="standard">
+                            <div class="option-title">Standard Shipping</div>
+                            <div class="option-description">5-7 business days</div>
+                            <div style="font-weight: 600; margin-top: 1rem; color: var(--primary-color);">FREE</div>
+                        </div>
+                        
+                        <div class="option-card" data-shipping="expedited">
+                            <div class="option-title">Expedited Shipping</div>
+                            <div class="option-description">2-3 business days</div>
+                            <div style="font-weight: 600; margin-top: 1rem; color: var(--primary-color);">$5.99</div>
+                        </div>
+                    </div>
+                    
+                    <button id="shipping-next" class="next-button">Continue to Checkout</button>
+                </div>
+                
+                <!-- Final Step: Review & Checkout -->
+                <div class="question" id="question-8">
+                    <h2>Review your order</h2>
+                    <p>Please review your order details before proceeding to payment.</p>
+                    
+                    <div style="background-color: #f9f9f9; padding: 2rem; border-radius: var(--border-radius); margin-bottom: 2rem;">
+                        <div id="review-details">
+                            <!-- This will be populated with JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <button id="checkout-button" class="next-button">Proceed to Payment</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Order Summary Section -->
+        <section class="order-section">
+            <div class="progress-container">
+                <div class="progress-bar" style="width: 0%;"></div>
+            </div>
+            
+            <div class="order-container">
+                <div class="order-title">Order Summary</div>
+                
+                <div class="order-details">
+                    <div class="order-item" id="customer-info">
+                        <div class="order-item-title">Customer</div>
+                        <div class="order-item-value" id="summary-name">—</div>
+                        <div class="order-item-value" id="summary-email" style="font-size: 0.9rem; opacity: 0.8;">—</div>
+                    </div>
+                    
+                    <div class="order-item" id="product-info">
+                        <div class="order-item-title">Contact Lenses</div>
+                        <div class="order-item-value" id="summary-brand">—</div>
+                    </div>
+                    
+                    <div class="order-item" id="prescription-info">
+                        <div class="order-item-title">Prescription</div>
+                        <div class="order-item-value" id="summary-prescription">—</div>
+                    </div>
+                    
+                    <div class="order-item" id="quantity-info">
+                        <div class="order-item-title">Quantity</div>
+                        <div class="order-item-value" id="summary-quantity">—</div>
+                    </div>
+                    
+                    <div class="order-item" id="shipping-info">
+                        <div class="order-item-title">Shipping</div>
+                        <div class="order-item-value" id="summary-shipping">—</div>
+                    </div>
+                </div>
+                
+                <div class="order-summary">
+                    <div class="order-total">
+                        <span>Total</span>
+                        <span id="summary-total">$0.00</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script>
+        // Global variables to store order information
+        const orderData = {
+            firstName: '',
+            lastName: '',
+            email: '',
+            brand: '',
+            prescriptionMethod: '',
+            prescription: {
+                right: {
+                    power: '',
+                    bc: '',
+                    diameter: ''
+                },
+                left: {
+                    power: '',
+                    bc: '',
+                    diameter: ''
+                }
+            },
+            quantity: 6, // Default selected quantity
+            boxPrice: 34.99, // Default price per box
+            shipping: {
+                method: '',
+                cost: 0
+            }
+        };
+        
+        // Variables to track the current question and total questions
+        let currentQuestion = 1;
+        const totalQuestions = 8;
+        
+        // DOM Ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize the form
+            initializeForm();
+            
+            // Set up event listeners
+            setupEventListeners();
+        });
+        
+        // Initialize the form
+        function initializeForm() {
+            // Set default values and states
+            document.querySelector('[data-quantity="6"]').classList.add('selected');
+            updateProgressBar();
+        }
+        
+        // Set up all event listeners
+        function setupEventListeners() {
+            // Name input
+            document.getElementById('name-next').addEventListener('click', function() {
+                const firstName = document.getElementById('first-name').value.trim();
+                const lastName = document.getElementById('last-name').value.trim();
+                
+                if (!firstName || !lastName) {
+                    alert('Please enter both your first and last name');
+                    return;
+                }
+                
+                orderData.firstName = firstName;
+                orderData.lastName = lastName;
+                
+                // Update summary
+                document.getElementById('summary-name').textContent = `${firstName} ${lastName}`;
+                
+                // Move to the next question
+                goToQuestion(2);
+            });
+            
+            // Email input
+            document.getElementById('email-next').addEventListener('click', function() {
+                const email = document.getElementById('email').value.trim();
+                
+                if (!email || !validateEmail(email)) {
+                    alert('Please enter a valid email address');
+                    return;
+                }
+                
+                orderData.email = email;
+                
+                // Update summary
+                document.getElementById('summary-email').textContent = email;
+                
+                // Move to the next question
+                goToQuestion(3);
+            });
+            
+            // Brand selection
+            const brandCards = document.querySelectorAll('[data-brand]');
+            brandCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Remove selected class from all cards
+                    brandCards.forEach(c => c.classList.remove('selected'));
+                    
+                    // Add selected class to clicked card
+                    this.classList.add('selected');
+                    
+                    // Store the selected brand
+                    orderData.brand = this.getAttribute('data-brand');
+                    
+                    // Update the brand dropdown to "Select" if a card is selected
+                    document.getElementById('other-brand').selectedIndex = 0;
+                });
+            });
+            
+            // Other brand dropdown
+            document.getElementById('other-brand').addEventListener('change', function() {
+                if (this.value) {
+                    // Remove selected class from all cards
+                    brandCards.forEach(c => c.classList.remove('selected'));
+                    
+                    // Store the selected brand
+                    orderData.brand = this.value;
+                }
+            });
+            
+            // Brand next button
+            document.getElementById('brand-next').addEventListener('click', function() {
+                if (!orderData.brand) {
+                    alert('Please select a contact lens brand');
+                    return;
+                }
+                
+                // Update summary
+                document.getElementById('summary-brand').textContent = orderData.brand;
+                
+                // Move to the next question
+                goToQuestion(4);
+            });
+            
+            // Prescription method selection
+            const methodCards = document.querySelectorAll('[data-method]');
+            methodCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Remove selected class from all cards
+                    methodCards.forEach(c => c.classList.remove('selected'));
+                    
+                    // Add selected class to clicked card
+                    this.classList.add('selected');
+                    
+                    // Store the selected method
+                    orderData.prescriptionMethod = this.getAttribute('data-method');
+                });
+            });
+            
+            // Method next button
+            document.getElementById('method-next').addEventListener('click', function() {
+                if (!orderData.prescriptionMethod) {
+                    alert('Please select a prescription method');
+                    return;
+                }
+                
+                // Go to the appropriate question based on the selected method
+                switch (orderData.prescriptionMethod) {
+                    case 'upload':
+                        showQuestion('question-5-upload');
+                        break;
+                    case 'photo':
+                        showQuestion('question-5-photo');
+                        break;
+                    case 'box':
+                        showQuestion('question-5-box');
+                        break;
+                    case 'manual':
+                        showQuestion('question-5-manual');
+                        break;
+                }
+                
+                // Update progress bar
+                currentQuestion = 5;
+                updateProgressBar();
+            });
+            
+            // Upload area
+            document.getElementById('upload-area').addEventListener('click', function() {
+                document.getElementById('prescription-file').click();
+            });
+            
+            // File input change
+            document.getElementById('prescription-file').addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    const fileName = e.target.files[0].name;
+                    document.getElementById('file-name').textContent = `Selected file: ${fileName}`;
+                    document.getElementById('file-name').style.display = 'block';
+                    
+                    // Store prescription info
+                    orderData.prescription = {
+                        type: 'upload',
+                        file: fileName
+                    };
+                }
+            });
+            
+            // Upload next button
+            document.getElementById('upload-next').addEventListener('click', function() {
+                if (!orderData.prescription || !orderData.prescription.file) {
+                    alert('Please upload your prescription');
+                    return;
+                }
+                
+                // Update summary
+                document.getElementById('summary-prescription').textContent = `Uploaded: ${orderData.prescription.file}`;
+                
+                // Move to quantity question
+                goToQuestion(6);
+            });
+            
+            // Camera area
+            document.getElementById('camera-area').addEventListener('click', function() {
+                // In a real implementation, this would activate the camera
+                // For this demo, we'll simulate a photo being taken
+                const cameraPreview = document.getElementById('camera-preview');
+                cameraPreview.style.display = 'block';
+                
+                // Store prescription info
+                orderData.prescription = {
+                    type: 'photo',
+                    file: 'Prescription Photo'
+                };
+            });
+            
+            // Photo next button
+            document.getElementById('photo-next').addEventListener('click', function() {
+                if (!orderData.prescription || orderData.prescription.type !== 'photo') {
+                    alert('Please take a photo of your prescription');
+                    return;
+                }
+                
+                // Update summary
+                document.getElementById('summary-prescription').textContent = 'Prescription photo captured';
+                
+                // Move to quantity question
+                goToQuestion(6);
+            });
+            
+            // Box scan area
+            document.getElementById('box-scan-area').addEventListener('click', function() {
+                // In a real implementation, this would activate the camera for box scanning
+                // For this demo, we'll simulate a scan being taken
+                const boxPreview = document.getElementById('box-preview');
+                boxPreview.style.display = 'block';
+                
+                // Store prescription info
+                orderData.prescription = {
+                    type: 'box',
+                    file: 'Box Scan'
+                };
+            });
+            
+            // Box next button
+            document.getElementById('box-next').addEventListener('click', function() {
+                if (!orderData.prescription || orderData.prescription.type !== 'box') {
+                    alert('Please scan your contact lens box');
+                    return;
+                }
+                
+                // Update summary
+                document.getElementById('summary-prescription').textContent = 'Contact lens box scanned';
+                
+                // Move to quantity question
+                goToQuestion(6);
+            });
+            
+            // Manual prescription inputs
+            const prescriptionInputs = document.querySelectorAll('.prescription-input');
+            prescriptionInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    // Store prescription values
+                    if (this.id.startsWith('od-')) {
+                        const field = this.id.replace('od-', '');
+                        orderData.prescription.right[field] = this.value;
+                    } else if (this.id.startsWith('os-')) {
+                        const field = this.id.replace('os-', '');
+                        orderData.prescription.left[field] = this.value;
+                    }
+                });
+            });
+            
+            // Manual prescription next button
+            document.getElementById('manual-next').addEventListener('click', function() {
+                // Check if prescription is complete for both eyes
+                const rightComplete = orderData.prescription.right.power && 
+                                     orderData.prescription.right.bc && 
+                                     orderData.prescription.right.diameter;
+                
+                const leftComplete = orderData.prescription.left.power && 
+                                    orderData.prescription.left.bc && 
+                                    orderData.prescription.left.diameter;
+                
+                if (!rightComplete || !leftComplete) {
+                    alert('Please complete the prescription for both eyes');
+                    return;
+                }
+                
+                // Update summary
+                document.getElementById('summary-prescription').innerHTML = `
+                    <div>Right Eye: ${orderData.prescription.right.power} / ${orderData.prescription.right.bc} / ${orderData.prescription.right.diameter}</div>
+                    <div>Left Eye: ${orderData.prescription.left.power} / ${orderData.prescription.left.bc} / ${orderData.prescription.left.diameter}</div>
+                `;
+                
+                // Move to quantity question
+                goToQuestion(6);
+            });
+            
+            // Quantity selection
+            const quantityCards = document.querySelectorAll('[data-quantity]');
+            quantityCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Remove selected class from all cards
+                    quantityCards.forEach(c => c.classList.remove('selected'));
+                    
+                    // Add selected class to clicked card
+                    this.classList.add('selected');
+                    
+                    // Store the selected quantity
+                    const quantity = parseInt(this.getAttribute('data-quantity'));
+                    orderData.quantity = quantity;
+                    
+                    // Set price based on quantity
+                    switch (quantity) {
+                        case 2:
+                            orderData.boxPrice = 39.99;
+                            break;
+                        case 4:
+                            orderData.boxPrice = 36.99;
+                            break;
+                        case 6:
+                            orderData.boxPrice = 34.99;
+                            break;
+                        case 12:
+                            orderData.boxPrice = 29.99;
+                            break;
+                    }
+                    
+                    // Update summary
+                    updateTotal();
+                });
+            });
+            
+            // Quantity next button
+            document.getElementById('quantity-next').addEventListener('click', function() {
+                // Update summary
+                document.getElementById('summary-quantity').textContent = `${orderData.quantity} boxes`;
+                
+                // Move to shipping question
+                goToQuestion(7);
+            });
+            
+            // Shipping selection
+            const shippingCards = document.querySelectorAll('[data-shipping]');
+            shippingCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Remove selected class from all cards
+                    shippingCards.forEach(c => c.classList.remove('selected'));
+                    
+                    // Add selected class to clicked card
+                    this.classList.add('selected');
+                    
+                    // Store the selected shipping method
+                    const method = this.getAttribute('data-shipping');
+                    orderData.shipping.method = method;
+                    
+                    // Set shipping cost based on method
+                    if (method === 'standard') {
+                        orderData.shipping.cost = 0;
+                        orderData.shipping.name = 'Standard Shipping (5-7 days)';
+                    } else if (method === 'expedited') {
+                        orderData.shipping.cost = 5.99;
+                        orderData.shipping.name = 'Expedited Shipping (2-3 days)';
+                    }
+                    
+                    // Update summary
+                    updateTotal();
+                });
+            });
+            
+            // Shipping next button
+            document.getElementById('shipping-next').addEventListener('click', function() {
+                if (!orderData.shipping.method) {
+                    alert('Please select a shipping method');
+                    return;
+                }
+                
+                // Update summary
+                document.getElementById('summary-shipping').textContent = orderData.shipping.name;
+                
+                // Prepare review details
+                prepareReviewDetails();
+                
+                // Move to review question
+                goToQuestion(8);
+            });
+            
+            // Checkout button
+            document.getElementById('checkout-button').addEventListener('click', function() {
+                // In a real implementation, this would proceed to payment processing
+                alert('Thank you for your order! Proceeding to payment...');
+            });
+            
+            // Upload area drag and drop functionality
+            const uploadArea = document.getElementById('upload-area');
+            
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, highlight, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, unhighlight, false);
+            });
+            
+            function highlight() {
+                uploadArea.classList.add('highlight');
+            }
+            
+            function unhighlight() {
+                uploadArea.classList.remove('highlight');
+            }
+            
+            uploadArea.addEventListener('drop', handleDrop, false);
+            
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                
+                if (files.length > 0) {
+                    const fileName = files[0].name;
+                    document.getElementById('file-name').textContent = `Selected file: ${fileName}`;
+                    document.getElementById('file-name').style.display = 'block';
+                    
+                    // Store prescription info
+                    orderData.prescription = {
+                        type: 'upload',
+                        file: fileName
+                    };
+                }
+            }
+        }
+        
+        // Navigate to a specific question
+        function goToQuestion(questionNumber) {
+            // Hide all questions
+            const questions = document.querySelectorAll('.question');
+            questions.forEach(q => {
+                q.classList.remove('active');
+            });
+            
+            // Show the specified question
+            if (questionNumber === 5) {
+                // For question 5, we need to show the specific variant based on prescription method
+                const questionId = `question-5-${orderData.prescriptionMethod}`;
+                showQuestion(questionId);
+            } else {
+                showQuestion(`question-${questionNumber}`);
+            }
+            
+            // Update current question
+            currentQuestion = questionNumber;
+            
+            // Update progress bar
+            updateProgressBar();
+        }
+        
+        // Show a specific question by ID
+        function showQuestion(questionId) {
+            const question = document.getElementById(questionId);
+            
+            // Hide all questions
+            const questions = document.querySelectorAll('.question');
+            questions.forEach(q => {
+                q.classList.remove('active');
+            });
+            
+            // Show the specified question
+            question.classList.add('active');
+        }
+        
+        // Update the progress bar
+        function updateProgressBar() {
+            const progress = (currentQuestion / totalQuestions) * 100;
+            document.querySelector('.progress-bar').style.width = `${progress}%`;
+        }
+        
+        // Update the total price
+        function updateTotal() {
+            const subtotal = orderData.quantity * orderData.boxPrice;
+            const shipping = orderData.shipping.cost || 0;
+            const total = subtotal + shipping;
+            
+            document.getElementById('summary-total').textContent = `${total.toFixed(2)}`;
+        }
+        
+        // Prepare review details
+        function prepareReviewDetails() {
+            const reviewDetails = document.getElementById('review-details');
+            let prescriptionDetails = '';
+            
+            if (orderData.prescription.type === 'manual') {
+                prescriptionDetails = `
+                    <p><strong>Right Eye:</strong> ${orderData.prescription.right.power} / ${orderData.prescription.right.bc} / ${orderData.prescription.right.diameter}</p>
+                    <p><strong>Left Eye:</strong> ${orderData.prescription.left.power} / ${orderData.prescription.left.bc} / ${orderData.prescription.left.diameter}</p>
+                `;
+            } else {
+                prescriptionDetails = `<p><strong>Prescription Method:</strong> ${capitalizeFirstLetter(orderData.prescription.type)}</p>`;
+            }
+            
+            reviewDetails.innerHTML = `
+                <p><strong>Name:</strong> ${orderData.firstName} ${orderData.lastName}</p>
+                <p><strong>Email:</strong> ${orderData.email}</p>
+                <p><strong>Brand:</strong> ${orderData.brand}</p>
+                <div style="margin: 1rem 0;">
+                    <p><strong>Prescription:</strong></p>
+                    ${prescriptionDetails}
+                </div>
+                <p><strong>Quantity:</strong> ${orderData.quantity} boxes</p>
+                <p><strong>Price per box:</strong> ${orderData.boxPrice.toFixed(2)}</p>
+                <p><strong>Shipping:</strong> ${orderData.shipping.name} (${orderData.shipping.cost.toFixed(2)})</p>
+                <p style="font-weight: 600; margin-top: 1rem; font-size: 1.2rem;">
+                    <strong>Total:</strong> ${(orderData.quantity * orderData.boxPrice + orderData.shipping.cost).toFixed(2)}
+                </p>
+            `;
+        }
+        
+        // Validate email
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        // Capitalize first letter
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+    </script>
+</body>
+</html>

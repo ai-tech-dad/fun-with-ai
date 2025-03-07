@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisionClear | Premium Contact Lenses</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #001d9b;
+            --primary-light: #4895ef;
+            --secondary: #3f37c9;
+            --accent: #4cc9f0;
+            --text: #2b2d42;
+            --text-light: #8d99ae;
+            --background: #f8f9fa;
+            --white: #ffffff;
+            --error: #ef476f;
+            --success: #06d6a0;
+            --border-radius: 16px;
+            --box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .questions-container {
+            flex: 1;
+            padding: 2rem;
+            background-color: var(--white);
+            overflow-y: auto;
+            max-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        .order-summary-container {
+            width: 38%;
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 2rem;
+            position: relative;
+            overflow-y: auto;
+            max-height: 100vh;
+        }
+
+        .order-summary-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0ibm9uZSIvPjxjaXJjbGUgY3g9IjEwIiBjeT0iMTAiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjxjaXJjbGUgY3g9IjMwIiBjeT0iMTAiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iMTAiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjxjaXJjbGUgY3g9IjcwIiBjeT0iMTAiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjxjaXJjbGUgY3g9IjkwIiBjeT0iMTAiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjxjaXJjbGUgY3g9IjExMCIgY3k9IjEwIiByPSIyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48Y2lyY2xlIGN4PSIxMzAiIGN5PSIxMCIgcj0iMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PGNpcmNsZSBjeD0iMTUwIiBjeT0iMTAiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjxjaXJjbGUgY3g9IjE3MCIgY3k9IjEwIiByPSIyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48Y2lyY2xlIGN4PSIxOTAiIGN5PSIxMCIgcj0iMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PGNpcmNsZSBjeD0iMTAiIGN5PSIzMCIgcj0iMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PGNpcmNsZSBjeD0iNTAiIGN5PSIzMCIgcj0iMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PGNpcmNsZSBjeD0iNzAiIGN5PSIzMCIgcj0iMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PGNpcmNsZSBjeD0iOTAiIGN5PSIzMCIgcj0iMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PGNpcmNsZSBjeD0iMTEwIiBjeT0iMzAiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjxjaXJjbGUgY3g9IjEzMCIgY3k9IjMwIiByPSIyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48Y2lyY2xlIGN4PSIxNTAiIGN5PSIzMCIgcj0iMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PGNpcmNsZSBjeD0iMTcwIiBjeT0iMzAiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjxjaXJjbGUgY3g9IjE5MCIgY3k9IjMwIiByPSIyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48Y2lyY2xlIGN4PSIxMCIgY3k9IjUwIiByPSIyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48Y2lyY2xlIGN4PSIzMCIgY3k9IjUwIiByPSIyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48Y2lyY2xlIGN4PSI3MCIgY3k9IjUwIiByPSIyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48Y2lyY2xlIGN4PSI5MCIgY3k9IjUwIiByPSIyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48Y2lyY2xlIGN4PSIxMTAiIGN5PSI1MCIgcj0iMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PGNpcmNsZSBjeD0iMTMwIiBjeT0iNTAiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjxjaXJjbGUgY3g9IjE1MCIgY3k9IjUwIiByPSIyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48Y2lyY2xlIGN4PSIxNzAiIGN5PSI1MCIgcj0iMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PGNpcmNsZSBjeD0iMTkwIiBjeT0iNTAiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjxjaXJjbGUgY3g9IjEwIiBjeT0iNzAiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjxjaXJjbGUgY3g9IjMwIiBjeT0iNzAiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNzAiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjxjaXJjbGUgY3g9IjcwIiBjeT0iNzAiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjxjaXJjbGUgY3g9IjkwIiBjeT0iNzAiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjxjaXJjbGUgY3g9IjExMCIgY3k9IjcwIiByPSIyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48Y2lyY2xlIGN4PSIxMzAiIGN5PSI3MCIgcj0iMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PGNpcmNsZSBjeD0iMTUwIiBjeT0iNzAiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjxjaXJjbGUgY3g9IjE3MCIgY3k9IjcwIiByPSIyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48Y2lyY2xlIGN4PSIxOTAiIGN5PSI3MCIgcj0iMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PGNpcmNsZSBjeD0iMTAiIGN5PSI5MCIgcj0iMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PGNpcmNsZSBjeD0iMzAiIGN5PSI5MCIgcj0iMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PGNpcmNsZSBjeD0iNTAiIGN5PSI5MCIgcj0iMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PGNpcmNsZSBjeD0iNzAiIGN5PSI5MCIgcj0iMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PGNpcmNsZSBjeD0iOTAiIGN5PSI5MCIgcj0iMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PGNpcmNsZSBjeD0iMTEwIiBjeT0iOTAiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjxjaXJjbGUgY3g9IjEzMCIgY3k9IjkwIiByPSIyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48Y2lyY2xlIGN4PSIxNTAiIGN5PSI5MCIgcj0iMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+PGNpcmNsZSBjeD0iMTcwIiBjeT0iOTAiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjxjaXJjbGUgY3g9IjE5MCIgY3k9IjkwIiByPSIyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48L3N2Zz4=');
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo svg {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .order-summary-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .step {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+            pointer-events: none;
+            visibility: hidden;
+        }
+
+        .step.active {
+            opacity: 1;
+            transform: translateY(0);
+            position: relative;
+            pointer-events: all;
+            visibility: visible;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        p {
+            margin-bottom: 2.5rem;
+            font-size: 1.25rem;
+            line-height: 1.6;
+        }
+
+        .input-group {
+            margin-bottom: 2.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 1.25rem 1.5rem;
+            font-size: 1.15rem;
+            border: 3px solid #e9ecef;
+            border-radius: var(--border-radius);
+            background-color: #f8f9fa;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+            margin-top: 0.5rem;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.15);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1.25rem 2.5rem;
+            font-size: 1.15rem;
+            font-weight: 600;
+            text-align: center;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2);
+        }
+
+        .btn-next {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-next:hover {
+            background-color: var(--secondary);
+        }
+
+        .btn-back {
+            background-color: transparent;
+            color: var(--text);
+            margin-right: 1rem;
+        }
+
+        .btn-back:hover {
+            background-color: #e9ecef;
+        }
+
+        .summary-item {
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: var(--transition);
+        }
+
+        .summary-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .summary-item-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.35rem;
+            font-weight: 500;
+        }
+
+        .summary-item-value {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .summary-divider {
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin: 1.5rem 0;
+        }
+
+        .order-total {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-top: 2rem;
+        }
+
+        .brand-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .brand-option {
+            padding: 2rem;
+            border: 3px solid #e9ecef;
+            border-radius: var(--border-radius);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        .brand-option:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-5px);
+        }
+
+        .brand-option.selected {
+            border-color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+
+        .brand-option img {
+            height: 30px;
+            margin-bottom: 0.5rem;
+        }
+
+        .prescription-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .prescription-option {
+            padding: 2.5rem;
+            border: 3px solid #e9ecef;
+            border-radius: var(--border-radius);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        .prescription-option:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-5px);
+        }
+
+        .prescription-option.selected {
+            border-color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+
+        .prescription-option-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .prescription-option-label {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .prescription-details {
+            background-color: rgba(67, 97, 238, 0.05);
+            border: 2px solid #e9ecef;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .prescription-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .eye-selection {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .eye-option {
+            flex: 1;
+            padding: 1.5rem;
+            text-align: center;
+            border: 3px solid #e9ecef;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .eye-option.selected {
+            border-color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #e9ecef;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .quantity-btn:hover {
+            background-color: var(--primary-light);
+            color: white;
+        }
+
+        .quantity-value {
+            width: 40px;
+            text-align: center;
+            margin: 0 1rem;
+            font-weight: 600;
+        }
+
+        .shipping-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .shipping-option {
+            padding: 2rem;
+            border: 3px solid #e9ecef;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        .shipping-option:hover {
+            border-color: var(--primary-light);
+        }
+
+        .shipping-option.selected {
+            border-color: var(--primary);
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+
+        .shipping-option-icon {
+            font-size: 2rem;
+            margin-right: 1.5rem;
+            color: var(--primary);
+        }
+
+        .shipping-option-info {
+            flex: 1;
+        }
+
+        .shipping-option-name {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .shipping-option-description {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .shipping-option-price {
+            font-weight: 600;
+        }
+
+        .file-upload {
+            border: 2px dashed #e9ecef;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            margin-bottom: 2rem;
+        }
+
+        .file-upload:hover {
+            border-color: var(--primary-light);
+            background-color: rgba(67, 97, 238, 0.02);
+        }
+
+        .file-upload-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .file-upload-text {
+            margin-bottom: 0;
+        }
+
+        .camera-upload {
+            background-color: rgba(67, 97, 238, 0.05);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .camera-placeholder {
+            width: 100%;
+            height: 200px;
+            background-color: #e9ecef;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .camera-icon {
+            font-size: 3rem;
+            color: var(--text-light);
+        }
+
+        .progress-container {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            background-color: white;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+        }
+
+        .progress-count {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .questions-container, .order-summary-container {
+                width: 100%;
+                max-height: none;
+            }
+
+            .order-summary-container {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 1000;
+                padding: 1rem;
+                overflow-y: auto;
+            }
+
+            .order-summary-container.active {
+                display: block;
+            }
+
+            .toggle-summary {
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                background-color: var(--primary);
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: var(--box-shadow);
+                z-index: 1001;
+                cursor: pointer;
+            }
+
+            .toggle-summary-icon {
+                font-size: 1.5rem;
+            }
+
+            .close-summary {
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+                z-index: 2;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .pulse {
+            animation: pulse 1s infinite;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .left-actions {
+            display: flex;
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .error-message.visible {
+            display: block;
+        }
+
+        .input-group.error input,
+        .input-group.error select {
+            border-color: var(--error);
+        }
+
+        .success-icon {
+            display: none;
+            color: var(--success);
+            margin-left: 0.5rem;
+        }
+
+        .success-icon.visible {
+            display: inline-block;
+        }
+
+        .thank-you-icon {
+            font-size: 5rem;
+            color: var(--success);
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+
+        .centered-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="questions-container">
+            <div class="logo">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="#001d9b" stroke-width="2"/>
+                    <circle cx="12" cy="12" r="6" stroke="#001d9b" stroke-width="2"/>
+                    <circle cx="12" cy="12" r="2" fill="#001d9b"/>
+                </svg>
+                <h1>VisionClear</h1>
+            </div>
+
+            <!-- Step 1: Welcome -->
+            <div class="step active" id="step-1">
+                <h2>Get your contacts delivered straight to your door</h2>
+                <p>Let's set you up with the perfect contacts for your needs. We'll guide you through a simple process to get your prescription right.</p>
+                <button class="btn btn-next" onclick="nextStep(1)">Get Started</button>
+            </div>
+
+            <!-- Step 2: Customer Information -->
+            <div class="step" id="step-2">
+                <h2>First, let's get to know you</h2>
+                <p>We'll use this information to create your account and delivery details.</p>
+                
+                <div class="input-group" id="first-name-group">
+                    <label for="first-name">First Name</label>
+                    <input type="text" id="first-name" placeholder="Your first name" oninput="updateOrderSummary()">
+                    <div class="error-message" id="first-name-error">Please enter your first name</div>
+                </div>
+                
+                <div class="input-group" id="last-name-group">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" id="last-name" placeholder="Your last name" oninput="updateOrderSummary()">
+                    <div class="error-message" id="last-name-error">Please enter your last name</div>
+                </div>
+                
+                <div class="input-group" id="email-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="your.email@example.com" oninput="updateOrderSummary()">
+                    <div class="error-message" id="email-error">Please enter a valid email address</div>
+                </div>
+                
+                <div class="actions">
+                    <div class="left-actions">
+                        <button class="btn btn-back" onclick="prevStep(2)">Back</button>
+                    </div>
+                    <button class="btn btn-next" onclick="validateAndNext(2)">Continue</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Brand Selection -->
+            <div class="step" id="step-3">
+                <h2>Which contact lens brand do you use?</h2>
+                <p>Select the brand of contacts you currently use or would like to try.</p>
+                
+                <div class="brand-options">
+                    <div class="brand-option" onclick="selectBrand('Acuvue')">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjMwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjNDM2MWVlIj5BY3V2dWU8L3RleHQ+PC9zdmc+" alt="Acuvue">
+                        <span>Acuvue</span>
+                    </div>
+                    <div class="brand-option" onclick="selectBrand('Bausch + Lomb')">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjMwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXNpemU9IjEyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjNDM2MWVlIj5CYXVzY2ggKyBMb21iPC90ZXh0Pjwvc3ZnPg==" alt="Bausch + Lomb">
+                        <span>Bausch + Lomb</span>
+                    </div>
+                    <div class="brand-option" onclick="selectBrand('Alcon')">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjMwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjNDM2MWVlIj5BbGNvbjwvdGV4dD48L3N2Zz4=" alt="Alcon">
+                        <span>Alcon</span>
+                    </div>
+                    <div class="brand-option" onclick="selectBrand('CooperVision')">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjMwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXNpemU9IjEyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjNDM2MWVlIj5Db29wZXJWaXNpb248L3RleHQ+PC9zdmc+" alt="CooperVision">
+                        <span>CooperVision</span>
+                    </div>
+                    <div class="brand-option" onclick="selectBrand('Other')">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjMwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmb250LXNpemU9IjE0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiBmaWxsPSIjNDM2MWVlIj5PdGhlcjwvdGV4dD48L3N2Zz4=" alt="Other">
+                        <span>Other</span>
+                    </div>
+                </div>
+
+                <div class="input-group" id="brand-other-group" style="display: none;">
+                    <label for="brand-other">Please specify your brand</label>
+                    <input type="text" id="brand-other" placeholder="Enter your contact lens brand" oninput="updateOrderSummary()">
+                </div>
+                
+                <div class="actions">
+                    <div class="left-actions">
+                        <button class="btn btn-back" onclick="prevStep(3)">Back</button>
+                    </div>
+                    <button class="btn btn-next" onclick="validateAndNext(3)">Continue</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Prescription Source -->
+            <div class="step" id="step-4">
+                <h2>How would you like to provide your prescription?</h2>
+                <p>Choose the easiest way for you to share your contact lens prescription with us.</p>
+                
+                <div class="prescription-options">
+                    <div class="prescription-option" onclick="selectPrescriptionMethod('upload')">
+                        <div class="prescription-option-icon">📄</div>
+                        <div class="prescription-option-label">Upload prescription</div>
+                    </div>
+                    <div class="prescription-option" onclick="selectPrescriptionMethod('camera')">
+                        <div class="prescription-option-icon">📱</div>
+                        <div class="prescription-option-label">Take a photo</div>
+                    </div>
+                    <div class="prescription-option" onclick="selectPrescriptionMethod('box')">
+                        <div class="prescription-option-icon">📦</div>
+                        <div class="prescription-option-label">Scan box</div>
+                    </div>
+                    <div class="prescription-option" onclick="selectPrescriptionMethod('manual')">
+                        <div class="prescription-option-icon">✍️</div>
+                        <div class="prescription-option-label">Enter manually</div>
+                    </div>
+                </div>
+                
+                <div class="actions">
+                    <div class="left-actions">
+                        <button class="btn btn-back" onclick="prevStep(4)">Back</button>
+                    </div>
+                    <button class="btn btn-next" onclick="validateAndNext(4)">Continue</button>
+                </div>
+            </div>
+
+            <!-- Step 5: Upload Prescription -->
+            <div class="step" id="step-5-upload">
+                <h2>Upload your prescription</h2>
+                <p>You can upload an image or PDF of your contact lens prescription from your doctor.</p>
+                
+                <div class="file-upload" onclick="document.getElementById('prescription-file').click()">
+                    <div class="file-upload-icon">📄</div>
+                    <p class="file-upload-text">Click to browse files or drag and drop here</p>
+                    <input type="file" id="prescription-file" style="display: none;" accept="image/*,application/pdf" onchange="handleFileUpload(this)">
+                </div>
+                
+                <div id="upload-preview" style="display: none;">
+                    <p>File uploaded: <span id="uploaded-filename"></span></p>
+                </div>
+                
+                <div class="actions">
+                    <div class="left-actions">
+                        <button class="btn btn-back" onclick="prevStep(5)">Back</button>
+                    </div>
+                    <button class="btn btn-next" onclick="nextStep(5)">Continue</button>
+                </div>
+            </div>
+
+            <!-- Step 5: Camera Prescription -->
+            <div class="step" id="step-5-camera">
+                <h2>Take a photo of your prescription</h2>
+                <p>Use your camera to take a clear photo of your contact lens prescription.</p>
+                
+                <div class="camera-upload">
+                    <div class="camera-placeholder">
+                        <div class="camera-icon">📷</div>
+                    </div>
+                    <button class="btn btn-next" onclick="activateCamera()">Activate Camera</button>
+                </div>
+                
+                <div class="actions">
+                    <div class="left-actions">
+                        <button class="btn btn-back" onclick="prevStep(5)">Back</button>
+                    </div>
+                    <button class="btn btn-next" onclick="nextStep(5)">Continue</button>
+                </div>
+            </div>
+
+            <!-- Step 5: Scan Box -->
+            <div class="step" id="step-5-box">
+                <h2>Scan your contact lens box</h2>
+                <p>Scan the barcode or QR code on your current contact lens box.</p>
+                
+                <div class="camera-upload">
+                    <div class="camera-placeholder">
+                        <div class="camera-icon">📦</div>
+                    </div>
+                    <button class="btn btn-next" onclick="activateScanner()">Activate Scanner</button>
+                </div>
+                
+                <div class="actions">
+                    <div class="left-actions">
+                        <button class="btn btn-back" onclick="prevStep(5)">Back</button>
+                    </div>
+                    <button class="btn btn-next" onclick="nextStep(5)">Continue</button>
+                </div>
+            </div>
+
+            <!-- Step 5: Manual Entry -->
+            <div class="step" id="step-5-manual">
+                <h2>Enter your prescription details</h2>
+                <p>Please enter the details from your contact lens prescription.</p>
+                
+                <div class="eye-selection">
+                    <div class="eye-option selected" onclick="selectEye('left')">Left Eye</div>
+                    <div class="eye-option" onclick="selectEye('right')">Right Eye</div>
+                </div>
+                
+                <div class="prescription-details">
+                    <h3>Left Eye</h3>
+                    <div class="prescription-grid" id="left-eye-form">
+                        <div class="input-group">
+                            <label for="left-power">Power/Sphere</label>
+                            <select id="left-power" onchange="updateOrderSummary()">
+                                <option value="">Select</option>
+                                <option value="-0.50">-0.50</option>
+                                <option value="-0.75">-0.75</option>
+                                <option value="-1.00">-1.00</option>
+                                <option value="-1.25">-1.25</option>
+                                <option value="-1.50">-1.50</option>
+                                <option value="-1.75">-1.75</option>
+                                <option value="-2.00">-2.00</option>
+                                <option value="-2.25">-2.25</option>
+                                <option value="-2.50">-2.50</option>
+                                <option value="-2.75">-2.75</option>
+                                <option value="-3.00">-3.00</option>
+                                <option value="-3.25">-3.25</option>
+                                <option value="-3.50">-3.50</option>
+                                <option value="-3.75">-3.75</option>
+                                <option value="-4.00">-4.00</option>
+                                <option value="-4.25">-4.25</option>
+                                <option value="-4.50">-4.50</option>
+                                <option value="-4.75">-4.75</option>
+                                <option value="-5.00">-5.00</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="left-bc">Base Curve (BC)</label>
+                            <select id="left-bc" onchange="updateOrderSummary()">
+                                <option value="">Select</option>
+                                <option value="8.4">8.4</option>
+                                <option value="8.5">8.5</option>
+                                <option value="8.6">8.6</option>
+                                <option value="8.7">8.7</option>
+                                <option value="8.8">8.8</option>
+                                <option value="8.9">8.9</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="left-dia">Diameter (DIA)</label>
+                            <select id="left-dia" onchange="updateOrderSummary()">
+                                <option value="">Select</option>
+                                <option value="13.8">13.8</option>
+                                <option value="14.0">14.0</option>
+                                <option value="14.2">14.2</option>
+                                <option value="14.5">14.5</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="left-cyl">Cylinder (CYL)</label>
+                            <select id="left-cyl" onchange="updateOrderSummary()">
+                                <option value="">Select</option>
+                                <option value="-0.75">-0.75</option>
+                                <option value="-1.25">-1.25</option>
+                                <option value="-1.75">-1.75</option>
+                                <option value="-2.25">-2.25</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="prescription-grid" id="right-eye-form" style="display: none;">
+                        <div class="input-group">
+                            <label for="right-power">Power/Sphere</label>
+                            <select id="right-power" onchange="updateOrderSummary()">
+                                <option value="">Select</option>
+                                <option value="-0.50">-0.50</option>
+                                <option value="-0.75">-0.75</option>
+                                <option value="-1.00">-1.00</option>
+                                <option value="-1.25">-1.25</option>
+                                <option value="-1.50">-1.50</option>
+                                <option value="-1.75">-1.75</option>
+                                <option value="-2.00">-2.00</option>
+                                <option value="-2.25">-2.25</option>
+                                <option value="-2.50">-2.50</option>
+                                <option value="-2.75">-2.75</option>
+                                <option value="-3.00">-3.00</option>
+                                <option value="-3.25">-3.25</option>
+                                <option value="-3.50">-3.50</option>
+                                <option value="-3.75">-3.75</option>
+                                <option value="-4.00">-4.00</option>
+                                <option value="-4.25">-4.25</option>
+                                <option value="-4.50">-4.50</option>
+                                <option value="-4.75">-4.75</option>
+                                <option value="-5.00">-5.00</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="right-bc">Base Curve (BC)</label>
+                            <select id="right-bc" onchange="updateOrderSummary()">
+                                <option value="">Select</option>
+                                <option value="8.4">8.4</option>
+                                <option value="8.5">8.5</option>
+                                <option value="8.6">8.6</option>
+                                <option value="8.7">8.7</option>
+                                <option value="8.8">8.8</option>
+                                <option value="8.9">8.9</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="right-dia">Diameter (DIA)</label>
+                            <select id="right-dia" onchange="updateOrderSummary()">
+                                <option value="">Select</option>
+                                <option value="13.8">13.8</option>
+                                <option value="14.0">14.0</option>
+                                <option value="14.2">14.2</option>
+                                <option value="14.5">14.5</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="right-cyl">Cylinder (CYL)</label>
+                            <select id="right-cyl" onchange="updateOrderSummary()">
+                                <option value="">Select</option>
+                                <option value="-0.75">-0.75</option>
+                                <option value="-1.25">-1.25</option>
+                                <option value="-1.75">-1.75</option>
+                                <option value="-2.25">-2.25</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="actions">
+                    <div class="left-actions">
+                        <button class="btn btn-back" onclick="prevStep(5)">Back</button>
+                    </div>
+                    <button class="btn btn-next" onclick="nextStep(5)">Continue</button>
+                </div>
+            </div>
+
+            <!-- Step 6: Quantity Selection -->
+            <div class="step" id="step-6">
+                <h2>How many boxes would you like?</h2>
+                <p>Select the quantity of boxes you'd like to order. Each box contains 6 lenses (3 months supply for one eye).</p>
+                
+                <div class="input-group">
+                    <label for="left-eye-quantity">Left Eye</label>
+                    <div class="quantity-selector">
+                        <button class="quantity-btn" onclick="decrementQuantity('left-eye-quantity')">-</button>
+                        <div class="quantity-value" id="left-eye-quantity">1</div>
+                        <button class="quantity-btn" onclick="incrementQuantity('left-eye-quantity')">+</button>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="right-eye-quantity">Right Eye</label>
+                    <div class="quantity-selector">
+                        <button class="quantity-btn" onclick="decrementQuantity('right-eye-quantity')">-</button>
+                        <div class="quantity-value" id="right-eye-quantity">1</div>
+                        <button class="quantity-btn" onclick="incrementQuantity('right-eye-quantity')">+</button>
+                    </div>
+                </div>
+                
+                <div class="actions">
+                    <div class="left-actions">
+                        <button class="btn btn-back" onclick="prevStep(6)">Back</button>
+                    </div>
+                    <button class="btn btn-next" onclick="nextStep(6)">Continue</button>
+                </div>
+            </div>
+
+            <!-- Step 7: Shipping Selection -->
+            <div class="step" id="step-7">
+                <h2>Choose your shipping method</h2>
+                <p>Select how quickly you'd like to receive your contact lenses.</p>
+                
+                <div class="shipping-options">
+                    <div class="shipping-option" onclick="selectShipping('standard')">
+                        <div class="shipping-option-icon">🚚</div>
+                        <div class="shipping-option-info">
+                            <div class="shipping-option-name">Standard Shipping</div>
+                            <div class="shipping-option-description">Delivery in 5-7 business days</div>
+                        </div>
+                        <div class="shipping-option-price">FREE</div>
+                    </div>
+                    
+                    <div class="shipping-option" onclick="selectShipping('express')">
+                        <div class="shipping-option-icon">⚡</div>
+                        <div class="shipping-option-info">
+                            <div class="shipping-option-name">Express Shipping</div>
+                            <div class="shipping-option-description">Delivery in 2-3 business days</div>
+                        </div>
+                        <div class="shipping-option-price">$9.99</div>
+                    </div>
+                    
+                    <div class="shipping-option" onclick="selectShipping('overnight')">
+                        <div class="shipping-option-icon">✈️</div>
+                        <div class="shipping-option-info">
+                            <div class="shipping-option-name">Overnight Shipping</div>
+                            <div class="shipping-option-description">Next business day delivery</div>
+                        </div>
+                        <div class="shipping-option-price">$19.99</div>
+                    </div>
+                </div>
+                
+                <div class="actions">
+                    <div class="left-actions">
+                        <button class="btn btn-back" onclick="prevStep(7)">Back</button>
+                    </div>
+                    <button class="btn btn-next" onclick="nextStep(7)">Continue</button>
+                </div>
+            </div>
+
+            <!-- Step 8: Review & Checkout -->
+            <div class="step" id="step-8">
+                <h2>Review your order</h2>
+                <p>Please review your order details below before proceeding to checkout.</p>
+                
+                <div class="prescription-details">
+                    <h3>Order Summary</h3>
+                    <div id="checkout-summary">
+                        <!-- Filled dynamically with JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="actions">
+                    <div class="left-actions">
+                        <button class="btn btn-back" onclick="prevStep(8)">Back</button>
+                    </div>
+                    <button class="btn btn-next" onclick="placeOrder()">Place Order</button>
+                </div>
+            </div>
+
+            <!-- Step 9: Thank You -->
+            <div class="step" id="step-9">
+                <div class="centered-content">
+                    <div class="thank-you-icon">✅</div>
+                    <h2>Thank you for your order!</h2>
+                    <p>Your contact lenses are on their way. We've sent a confirmation email to your inbox with all the details.</p>
+                    <button class="btn btn-next" onclick="resetForm()">Start Over</button>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-stats">
+                    <div class="progress-count" id="progress-count">Step 1 of 9</div>
+                    <div class="progress-count" id="progress-percentage">11%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-summary-container" id="order-summary">
+            <button class="close-summary" id="close-summary">×</button>
+            <div class="order-summary-content">
+                <h3>Your Order</h3>
+                
+                <div class="summary-item" id="summary-name">
+                    <div class="summary-item-label">Name</div>
+                    <div class="summary-item-value">Not provided yet</div>
+                </div>
+                
+                <div class="summary-item" id="summary-email">
+                    <div class="summary-item-label">Email</div>
+                    <div class="summary-item-value">Not provided yet</div>
+                </div>
+                
+                <div class="summary-divider"></div>
+                
+                <div class="summary-item" id="summary-brand">
+                    <div class="summary-item-label">Contact Lens Brand</div>
+                    <div class="summary-item-value">Not selected yet</div>
+                </div>
+                
+                <div class="summary-item" id="summary-prescription">
+                    <div class="summary-item-label">Prescription</div>
+                    <div class="summary-item-value">Not provided yet</div>
+                </div>
+                
+                <div class="summary-divider"></div>
+                
+                <div class="summary-item" id="summary-left-eye">
+                    <div class="summary-item-label">Left Eye</div>
+                    <div class="summary-item-value">Not provided yet</div>
+                </div>
+                
+                <div class="summary-item" id="summary-right-eye">
+                    <div class="summary-item-label">Right Eye</div>
+                    <div class="summary-item-value">Not provided yet</div>
+                </div>
+                
+                <div class="summary-divider"></div>
+                
+                <div class="summary-item" id="summary-quantity">
+                    <div class="summary-item-label">Quantity</div>
+                    <div class="summary-item-value">Not selected yet</div>
+                </div>
+                
+                <div class="summary-item" id="summary-shipping">
+                    <div class="summary-item-label">Shipping</div>
+                    <div class="summary-item-value">Not selected yet</div>
+                </div>
+                
+                <div class="summary-divider"></div>
+                
+                <div class="summary-item" id="summary-subtotal">
+                    <div class="summary-item-label">Subtotal</div>
+                    <div class="summary-item-value">$0.00</div>
+                </div>
+                
+                <div class="summary-item" id="summary-shipping-cost">
+                    <div class="summary-item-label">Shipping Cost</div>
+                    <div class="summary-item-value">$0.00</div>
+                </div>
+                
+                <div class="order-total" id="summary-total">
+                    Total: $0.00
+                </div>
+            </div>
+        </div>
+
+        <div class="toggle-summary" id="toggle-summary">
+            <div class="toggle-summary-icon">👁️</div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentStep = 1;
+        const totalSteps = 9;
+        let selectedBrand = '';
+        let selectedPrescriptionMethod = '';
+        let selectedEye = 'left';
+        let selectedShipping = '';
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgress();
+            showSummaryItems();
+            
+            // Mobile toggle for order summary
+            document.getElementById('toggle-summary').addEventListener('click', function() {
+                document.getElementById('order-summary').classList.toggle('active');
+            });
+            
+            document.getElementById('close-summary').addEventListener('click', function() {
+                document.getElementById('order-summary').classList.remove('active');
+            });
+        });
+        
+        // Navigation functions
+        function nextStep(step) {
+            // Hide current step
+            if (step === 5) {
+                // Hide the specific prescription method step
+                document.getElementById(`step-5-${selectedPrescriptionMethod}`).classList.remove('active');
+            } else {
+                document.getElementById(`step-${step}`).classList.remove('active');
+            }
+            
+            // Handle prescription method specific steps
+            if (step === 4) {
+                currentStep = 5;
+                document.getElementById(`step-5-${selectedPrescriptionMethod}`).classList.add('active');
+            } else {
+                currentStep = step + 1;
+                document.getElementById(`step-${currentStep}`).classList.add('active');
+            }
+            
+            updateProgress();
+            window.scrollTo(0, 0);
+        }
+        
+        function prevStep(step) {
+            // Hide current step
+            if (step === 5) {
+                // Hide the specific prescription method step
+                document.getElementById(`step-5-${selectedPrescriptionMethod}`).classList.remove('active');
+            } else {
+                document.getElementById(`step-${step}`).classList.remove('active');
+            }
+            
+            // Handle prescription method specific steps
+            if (step === 5) {
+                currentStep = 4;
+                document.getElementById('step-4').classList.add('active');
+            } else {
+                currentStep = step - 1;
+                document.getElementById(`step-${currentStep}`).classList.add('active');
+            }
+            
+            updateProgress();
+            window.scrollTo(0, 0);
+        }
+        
+        function updateProgress() {
+            const progressPercentage = ((currentStep - 1) / (totalSteps - 1)) * 100;
+            document.getElementById('progress-fill').style.width = `${progressPercentage}%`;
+            document.getElementById('progress-count').textContent = `Step ${currentStep} of ${totalSteps}`;
+            document.getElementById('progress-percentage').textContent = `${Math.round(progressPercentage)}%`;
+        }
+        
+        // Validation functions
+        function validateAndNext(step) {
+            let isValid = true;
+            
+            if (step === 2) {
+                // Validate customer info
+                const firstName = document.getElementById('first-name').value.trim();
+                const lastName = document.getElementById('last-name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                
+                if (!firstName) {
+                    showError('first-name-group', 'first-name-error', 'Please enter your first name');
+                    isValid = false;
+                } else {
+                    hideError('first-name-group', 'first-name-error');
+                }
+                
+                if (!lastName) {
+                    showError('last-name-group', 'last-name-error', 'Please enter your last name');
+                    isValid = false;
+                } else {
+                    hideError('last-name-group', 'last-name-error');
+                }
+                
+                if (!email || !validateEmail(email)) {
+                    showError('email-group', 'email-error', 'Please enter a valid email address');
+                    isValid = false;
+                } else {
+                    hideError('email-group', 'email-error');
+                }
+            } else if (step === 3) {
+                // Validate brand selection
+                if (!selectedBrand) {
+                    alert('Please select a contact lens brand');
+                    isValid = false;
+                }
+                
+                if (selectedBrand === 'Other') {
+                    const otherBrand = document.getElementById('brand-other').value.trim();
+                    if (!otherBrand) {
+                        alert('Please specify your contact lens brand');
+                        isValid = false;
+                    }
+                }
+            } else if (step === 4) {
+                // Validate prescription method
+                if (!selectedPrescriptionMethod) {
+                    alert('Please select how you want to provide your prescription');
+                    isValid = false;
+                }
+            }
+            
+            if (isValid) {
+                nextStep(step);
+            }
+        }
+        
+        function validateEmail(email) {
+            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+        
+        function showError(groupId, errorId, message) {
+            document.getElementById(groupId).classList.add('error');
+            const errorElement = document.getElementById(errorId);
+            errorElement.textContent = message;
+            errorElement.classList.add('visible');
+        }
+        
+        function hideError(groupId, errorId) {
+            document.getElementById(groupId).classList.remove('error');
+            document.getElementById(errorId).classList.remove('visible');
+        }
+        
+        // Selection functions
+        function selectBrand(brand) {
+            selectedBrand = brand;
+            
+            // Update UI
+            const brandOptions = document.querySelectorAll('.brand-option');
+            brandOptions.forEach(option => {
+                option.classList.remove('selected');
+                if (option.textContent.trim() === brand) {
+                    option.classList.add('selected');
+                }
+            });
+            
+            // Show/hide other brand input
+            const otherBrandGroup = document.getElementById('brand-other-group');
+            if (brand === 'Other') {
+                otherBrandGroup.style.display = 'block';
+            } else {
+                otherBrandGroup.style.display = 'none';
+            }
+            
+            updateOrderSummary();
+        }
+        
+        function selectPrescriptionMethod(method) {
+            selectedPrescriptionMethod = method;
+            
+            // Update UI
+            const prescriptionOptions = document.querySelectorAll('.prescription-option');
+            prescriptionOptions.forEach(option => {
+                option.classList.remove('selected');
+                if (option.querySelector('.prescription-option-label').textContent.toLowerCase().includes(method)) {
+                    option.classList.add('selected');
+                }
+            });
+            
+            updateOrderSummary();
+        }
+        
+        function selectEye(eye) {
+            selectedEye = eye;
+            
+            // Update UI
+            const eyeOptions = document.querySelectorAll('.eye-option');
+            eyeOptions.forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            if (eye === 'left') {
+                eyeOptions[0].classList.add('selected');
+                document.getElementById('left-eye-form').style.display = 'grid';
+                document.getElementById('right-eye-form').style.display = 'none';
+            } else {
+                eyeOptions[1].classList.add('selected');
+                document.getElementById('left-eye-form').style.display = 'none';
+                document.getElementById('right-eye-form').style.display = 'grid';
+            }
+        }
+        
+        function selectShipping(method) {
+            selectedShipping = method;
+            
+            // Update UI
+            const shippingOptions = document.querySelectorAll('.shipping-option');
+            shippingOptions.forEach(option => {
+                option.classList.remove('selected');
+                if (option.querySelector('.shipping-option-name').textContent.toLowerCase().includes(method)) {
+                    option.classList.add('selected');
+                }
+            });
+            
+            updateOrderSummary();
+        }
+        
+        // Quantity functions
+        function incrementQuantity(id) {
+            const valueElement = document.getElementById(id);
+            let value = parseInt(valueElement.textContent);
+            value = Math.min(value + 1, 10);
+            valueElement.textContent = value;
+            updateOrderSummary();
+        }
+        
+        function decrementQuantity(id) {
+            const valueElement = document.getElementById(id);
+            let value = parseInt(valueElement.textContent);
+            value = Math.max(value - 1, 1);
+            valueElement.textContent = value;
+            updateOrderSummary();
+        }
+        
+        // File handling functions
+        function handleFileUpload(input) {
+            if (input.files && input.files[0]) {
+                const fileName = input.files[0].name;
+                document.getElementById('uploaded-filename').textContent = fileName;
+                document.getElementById('upload-preview').style.display = 'block';
+                
+                updateOrderSummary();
+            }
+        }
+        
+        function activateCamera() {
+            // This would initialize the device camera in a real implementation
+            alert('Camera would be activated here in a real implementation');
+        }
+        
+        function activateScanner() {
+            // This would initialize the barcode scanner in a real implementation
+            alert('Barcode scanner would be activated here in a real implementation');
+        }
+        
+        // Order summary functions
+        function updateOrderSummary() {
+            // Personal information
+            const firstName = document.getElementById('first-name').value.trim();
+            const lastName = document.getElementById('last-name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            
+            if (firstName && lastName) {
+                updateSummaryItem('summary-name', `${firstName} ${lastName}`);
+            }
+            
+            if (email) {
+                updateSummaryItem('summary-email', email);
+            }
+            
+            // Brand
+            if (selectedBrand) {
+                let brandName = selectedBrand;
+                if (selectedBrand === 'Other') {
+                    const otherBrand = document.getElementById('brand-other').value.trim();
+                    if (otherBrand) {
+                        brandName = otherBrand;
+                    }
+                }
+                updateSummaryItem('summary-brand', brandName);
+            }
+            
+            // Prescription method
+            if (selectedPrescriptionMethod) {
+                let methodDescription = '';
+                switch (selectedPrescriptionMethod) {
+                    case 'upload':
+                        const fileName = document.getElementById('uploaded-filename').textContent;
+                        methodDescription = fileName ? `File: ${fileName}` : 'File upload';
+                        break;
+                    case 'camera':
+                        methodDescription = 'Photo';
+                        break;
+                    case 'box':
+                        methodDescription = 'Box scan';
+                        break;
+                    case 'manual':
+                        methodDescription = 'Manual entry';
+                        break;
+                }
+                updateSummaryItem('summary-prescription', methodDescription);
+            }
+            
+            // Left eye prescription
+            const leftPower = document.getElementById('left-power').value;
+            const leftBC = document.getElementById('left-bc').value;
+            const leftDIA = document.getElementById('left-dia').value;
+            
+            if (leftPower || leftBC || leftDIA) {
+                let leftEyeDetails = [];
+                if (leftPower) leftEyeDetails.push(`Power: ${leftPower}`);
+                if (leftBC) leftEyeDetails.push(`BC: ${leftBC}`);
+                if (leftDIA) leftEyeDetails.push(`DIA: ${leftDIA}`);
+                
+                updateSummaryItem('summary-left-eye', leftEyeDetails.join(', '));
+            }
+            
+            // Right eye prescription
+            const rightPower = document.getElementById('right-power').value;
+            const rightBC = document.getElementById('right-bc').value;
+            const rightDIA = document.getElementById('right-dia').value;
+            
+            if (rightPower || rightBC || rightDIA) {
+                let rightEyeDetails = [];
+                if (rightPower) rightEyeDetails.push(`Power: ${rightPower}`);
+                if (rightBC) rightEyeDetails.push(`BC: ${rightBC}`);
+                if (rightDIA) rightEyeDetails.push(`DIA: ${rightDIA}`);
+                
+                updateSummaryItem('summary-right-eye', rightEyeDetails.join(', '));
+            }
+            
+            // Quantity
+            const leftQuantity = document.getElementById('left-eye-quantity').textContent;
+            const rightQuantity = document.getElementById('right-eye-quantity').textContent;
+            
+            if (leftQuantity || rightQuantity) {
+                updateSummaryItem('summary-quantity', `Left: ${leftQuantity} box(es), Right: ${rightQuantity} box(es)`);
+            }
+            
+            // Shipping
+            if (selectedShipping) {
+                let shippingMethod = '';
+                let shippingCost = 0;
+                
+                switch (selectedShipping) {
+                    case 'standard':
+                        shippingMethod = 'Standard Shipping (5-7 days)';
+                        shippingCost = 0;
+                        break;
+                    case 'express':
+                        shippingMethod = 'Express Shipping (2-3 days)';
+                        shippingCost = 9.99;
+                        break;
+                    case 'overnight':
+                        shippingMethod = 'Overnight Shipping (Next day)';
+                        shippingCost = 19.99;
+                        break;
+                }
+                
+                updateSummaryItem('summary-shipping', shippingMethod);
+                updateSummaryItem('summary-shipping-cost', shippingCost === 0 ? 'FREE' : `$${shippingCost.toFixed(2)}`);
+            }
+            
+            // Calculate totals
+            calculateOrderTotal();
+            
+            // Update checkout summary
+            updateCheckoutSummary();
+        }
+        
+        function updateSummaryItem(id, value) {
+            const summaryItem = document.getElementById(id);
+            summaryItem.querySelector('.summary-item-value').textContent = value;
+            summaryItem.classList.add('visible');
+        }
+        
+        function showSummaryItems() {
+            const items = document.querySelectorAll('.summary-item');
+            items.forEach((item, index) => {
+                setTimeout(() => {
+                    item.classList.add('visible');
+                }, index * 100);
+            });
+        }
+        
+        function calculateOrderTotal() {
+            // Price per box
+            const boxPrice = 29.99;
+            
+            // Calculate quantity
+            const leftQuantity = parseInt(document.getElementById('left-eye-quantity').textContent) || 0;
+            const rightQuantity = parseInt(document.getElementById('right-eye-quantity').textContent) || 0;
+            const totalQuantity = leftQuantity + rightQuantity;
+            
+            // Calculate subtotal
+            const subtotal = totalQuantity * boxPrice;
+            updateSummaryItem('summary-subtotal', `$${subtotal.toFixed(2)}`);
+            
+            // Calculate shipping cost
+            let shippingCost = 0;
+            if (selectedShipping === 'express') {
+                shippingCost = 9.99;
+            } else if (selectedShipping === 'overnight') {
+                shippingCost = 19.99;
+            }
+            
+            // Calculate total
+            const total = subtotal + shippingCost;
+            document.getElementById('summary-total').textContent = `Total: $${total.toFixed(2)}`;
+        }
+        
+        function updateCheckoutSummary() {
+            const checkoutSummary = document.getElementById('checkout-summary');
+            if (!checkoutSummary) return;
+            
+            let summaryHTML = '';
+            
+            // Personal info
+            const firstName = document.getElementById('first-name').value.trim();
+            const lastName = document.getElementById('last-name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            
+            if (firstName && lastName) {
+                summaryHTML += `<p><strong>Name:</strong> ${firstName} ${lastName}</p>`;
+            }
+            
+            if (email) {
+                summaryHTML += `<p><strong>Email:</strong> ${email}</p>`;
+            }
+            
+            // Brand
+            if (selectedBrand) {
+                let brandName = selectedBrand;
+                if (selectedBrand === 'Other') {
+                    const otherBrand = document.getElementById('brand-other').value.trim();
+                    if (otherBrand) {
+                        brandName = otherBrand;
+                    }
+                }
+                summaryHTML += `<p><strong>Brand:</strong> ${brandName}</p>`;
+            }
+            
+            // Prescription details
+            const leftPower = document.getElementById('left-power').value;
+            const rightPower = document.getElementById('right-power').value;
+            
+            if (leftPower) {
+                summaryHTML += `<p><strong>Left Eye Power:</strong> ${leftPower}</p>`;
+            }
+            
+            if (rightPower) {
+                summaryHTML += `<p><strong>Right Eye Power:</strong> ${rightPower}</p>`;
+            }
+            
+            // Quantity
+            const leftQuantity = document.getElementById('left-eye-quantity').textContent;
+            const rightQuantity = document.getElementById('right-eye-quantity').textContent;
+            
+            if (leftQuantity || rightQuantity) {
+                summaryHTML += `<p><strong>Quantity:</strong> Left: ${leftQuantity} box(es), Right: ${rightQuantity} box(es)</p>`;
+            }
+            
+            // Shipping
+            if (selectedShipping) {
+                let shippingMethod = '';
+                
+                switch (selectedShipping) {
+                    case 'standard':
+                        shippingMethod = 'Standard Shipping (5-7 days)';
+                        break;
+                    case 'express':
+                        shippingMethod = 'Express Shipping (2-3 days)';
+                        break;
+                    case 'overnight':
+                        shippingMethod = 'Overnight Shipping (Next day)';
+                        break;
+                }
+                
+                summaryHTML += `<p><strong>Shipping:</strong> ${shippingMethod}</p>`;
+            }
+            
+            // Price calculations
+            const boxPrice = 29.99;
+            const leftQty = parseInt(leftQuantity) || 0;
+            const rightQty = parseInt(rightQuantity) || 0;
+            const totalQty = leftQty + rightQty;
+            const subtotal = totalQty * boxPrice;
+            
+            let shippingCost = 0;
+            if (selectedShipping === 'express') {
+                shippingCost = 9.99;
+            } else if (selectedShipping === 'overnight') {
+                shippingCost = 19.99;
+            }
+            
+            const total = subtotal + shippingCost;
+            
+            summaryHTML += `<p><strong>Subtotal:</strong> $${subtotal.toFixed(2)}</p>`;
+            summaryHTML += `<p><strong>Shipping Cost:</strong> ${shippingCost === 0 ? 'FREE' : '$' + shippingCost.toFixed(2)}</p>`;
+            summaryHTML += `<p><strong>Total:</strong> $${total.toFixed(2)}</p>`;
+            
+            checkoutSummary.innerHTML = summaryHTML;
+        }
+        
+        // Order placement
+        function placeOrder() {
+            // In a real implementation, this would send the order to the server
+            nextStep(8);
+        }
+        
+        // Reset form
+        function resetForm() {
+            // Reset all form values and return to first step
+            selectedBrand = '';
+            selectedPrescriptionMethod = '';
+            selectedEye = 'left';
+            selectedShipping = '';
+            
+            document.getElementById('first-name').value = '';
+            document.getElementById('last-name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('brand-other').value = '';
+            document.getElementById('left-power').value = '';
+            document.getElementById('left-bc').value = '';
+            document.getElementById('left-dia').value = '';
+            document.getElementById('left-cyl').value = '';
+            document.getElementById('right-power').value = '';
+            document.getElementById('right-bc').value = '';
+            document.getElementById('right-dia').value = '';
+            document.getElementById('right-cyl').value = '';
+            document.getElementById('left-eye-quantity').textContent = '1';
+            document.getElementById('right-eye-quantity').textContent = '1';
+            
+            // Reset UI
+            const brandOptions = document.querySelectorAll('.brand-option');
+            brandOptions.forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            const prescriptionOptions = document.querySelectorAll('.prescription-option');
+            prescriptionOptions.forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            const shippingOptions = document.querySelectorAll('.shipping-option');
+            shippingOptions.forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Reset summary
+            const summaryItems = document.querySelectorAll('.summary-item');
+            summaryItems.forEach(item => {
+                item.querySelector('.summary-item-value').textContent = 'Not provided yet';
+                item.classList.remove('visible');
+            });
+            
+            document.getElementById('summary-subtotal').querySelector('.summary-item-value').textContent = '$0.00';
+            document.getElementById('summary-shipping-cost').querySelector('.summary-item-value').textContent = '$0.00';
+            document.getElementById('summary-total').textContent = 'Total: $0.00';
+            
+            // Go to first step
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.getElementById('step-1').classList.add('active');
+            currentStep = 1;
+            updateProgress();
+        }
+    </script>
+</body>
+</html>

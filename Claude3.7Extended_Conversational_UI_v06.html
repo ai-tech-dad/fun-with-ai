@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vision Focus | Contact Lens Shop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-color: #4361ee;
+      --secondary-color: #3a0ca3;
+      --accent-color: #f72585;
+      --background-color: #ffffff;
+      --text-color: #2b2d42;
+      --light-text: #8d99ae;
+      --light-bg: #f8f9fa;
+      --border-color: #e9ecef;
+      --success-color: #06d6a0;
+      --error-color: #ef476f;
+      --transition: all 0.3s ease;
+      --border-radius: 12px;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--light-bg);
+      color: var(--text-color);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      display: flex;
+      width: 100%;
+      max-width: 1400px;
+      min-height: 650px;
+      height: 90vh;
+      background-color: var(--background-color);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    /* Left Panel: Questions */
+    .questions-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 40px;
+      background-color: var(--background-color);
+      position: relative;
+      border-right: 1px solid var(--border-color);
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background-color: var(--border-color);
+      border-radius: 3px;
+      margin-bottom: 40px;
+    }
+
+    .progress-indicator {
+      height: 100%;
+      background-color: var(--primary-color);
+      border-radius: 3px;
+      width: 0%; /* Will be updated with JS */
+      transition: var(--transition);
+    }
+
+    .question-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 600px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .question {
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: var(--transition);
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .question h2 {
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--text-color);
+    }
+
+    .question p {
+      color: var(--light-text);
+      margin-bottom: 32px;
+      font-size: 18px;
+    }
+
+    /* Input styling */
+    input, select, textarea {
+      width: 100%;
+      padding: 20px 24px;
+      font-size: 18px;
+      border: 2px solid var(--border-color);
+      border-radius: var(--border-radius);
+      background-color: var(--background-color);
+      margin-bottom: 24px;
+      font-family: 'Poppins', sans-serif;
+      transition: var(--transition);
+      color: var(--text-color);
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+    }
+
+    .input-group {
+      margin-bottom: 24px;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 12px;
+      font-weight: 500;
+      color: var(--text-color);
+      font-size: 18px;
+    }
+
+    .input-error {
+      color: var(--error-color);
+      font-size: 14px;
+      margin-top: 8px;
+      display: none;
+    }
+
+    /* File upload styling */
+    .file-upload {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px;
+      border: 2px dashed var(--border-color);
+      border-radius: var(--border-radius);
+      background-color: var(--background-color);
+      margin-bottom: 24px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .file-upload:hover {
+      border-color: var(--primary-color);
+      background-color: rgba(67, 97, 238, 0.03);
+    }
+
+    .file-upload input {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .file-upload-icon {
+      font-size: 48px;
+      color: var(--primary-color);
+      margin-bottom: 16px;
+    }
+
+    .file-upload-text {
+      text-align: center;
+    }
+
+    .file-upload-text p {
+      margin-bottom: 8px;
+    }
+
+    /* Navigation buttons */
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+    }
+
+    button {
+      padding: 18px 36px;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .prev-btn {
+      background-color: var(--light-bg);
+      color: var(--light-text);
+      border: 2px solid var(--border-color);
+    }
+
+    .prev-btn:hover:not([disabled]) {
+      background-color: var(--border-color);
+      color: var(--text-color);
+    }
+
+    .next-btn {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .next-btn:hover:not([disabled]) {
+      background-color: var(--secondary-color);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+
+    /* Right Panel: Order Summary */
+    .summary-panel {
+      width: 450px;
+      background-color: var(--light-bg);
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .summary-container {
+      position: sticky;
+      top: 40px;
+      background-color: white;
+      border-radius: var(--border-radius);
+      padding: 32px;
+      box-shadow: var(--card-shadow);
+      max-width: 400px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .summary-container h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      color: var(--text-color);
+      position: relative;
+      padding-bottom: 16px;
+    }
+
+    .summary-container h2:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background-color: var(--primary-color);
+      border-radius: 2px;
+    }
+
+    .order-details {
+      margin-top: 10px;
+    }
+
+    .detail-item {
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .detail-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .detail-label {
+      font-size: 14px;
+      color: var(--light-text);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .detail-value {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .empty-state {
+      color: var(--light-text);
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .small-detail {
+      font-size: 14px;
+      color: var(--light-text);
+      margin-top: 4px;
+    }
+
+    .total-section {
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 2px solid var(--border-color);
+    }
+
+    .total-section .detail-label {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .total-section .detail-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .checkout-btn {
+      width: 100%;
+      padding: 18px 32px;
+      background-color: var(--accent-color);
+      color: white;
+      margin-top: 32px;
+      display: none; /* Will be shown when ready to checkout */
+      box-shadow: 0 4px 15px rgba(247, 37, 133, 0.3);
+    }
+
+    .checkout-btn:hover {
+      background-color: #d91a75;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(247, 37, 133, 0.4);
+    }
+
+    /* Animation for order updates */
+    @keyframes highlight {
+      0% { background-color: rgba(67, 97, 238, 0.1); }
+      100% { background-color: transparent; }
+    }
+
+    .highlight {
+      animation: highlight 1.5s ease;
+    }
+
+    /* Options styling */
+    .options-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    .option-card {
+      padding: 24px 16px;
+      border: 2px solid var(--border-color);
+      border-radius: var(--border-radius);
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      background-color: white;
+    }
+
+    .option-card:hover {
+      border-color: var(--primary-color);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    .option-card.selected {
+      border-color: var(--primary-color);
+      background-color: rgba(67, 97, 238, 0.05);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    .option-icon {
+      font-size: 36px;
+      margin-bottom: 16px;
+      background-color: var(--light-bg);
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin: 0 auto 16px;
+    }
+
+    .selected .option-icon {
+      background-color: rgba(67, 97, 238, 0.1);
+    }
+
+    .option-label {
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .option-detail {
+      font-size: 14px;
+      color: var(--light-text);
+      margin-bottom: 8px;
+    }
+
+    .option-price {
+      font-weight: 600;
+      color: var(--accent-color);
+    }
+
+    /* Prescription input styling */
+    .prescription-form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .prescription-form .input-group {
+      margin-bottom: 16px;
+    }
+
+    .prescription-form .full-width {
+      grid-column: 1 / -1;
+    }
+
+    /* Responsive design */
+    @media (max-width: 1024px) {
+      .container {
+        flex-direction: column;
+        height: auto;
+        max-height: none;
+      }
+      
+      .summary-panel {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .questions-panel {
+        padding-bottom: 80px;  /* Extra space for buttons on small screens */
+      }
+    }
+
+    @media (max-width: 768px) {
+      .questions-panel, .summary-panel {
+        padding: 30px 20px;
+      }
+      
+      .question h2 {
+        font-size: 24px;
+      }
+      
+      .question p {
+        font-size: 16px;
+      }
+      
+      input, select, textarea {
+        padding: 16px 20px;
+        font-size: 16px;
+      }
+      
+      button {
+        padding: 14px 24px;
+      }
+
+      .prescription-form {
+        grid-template-columns: 1fr;
+      }
+
+      .options-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Utility classes */
+    .hidden {
+      display: none !important;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo span {
+      color: var(--accent-color);
+    }
+
+    .logo-icon {
+      margin-right: 10px;
+      font-size: 28px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Left panel: Questions -->
+    <div class="questions-panel">
+      <div class="logo">
+        <div class="logo-icon">👁️</div>
+        Vision<span>Focus</span>
+      </div>
+      
+      <div class="progress-bar">
+        <div class="progress-indicator"></div>
+      </div>
+      
+      <div class="question-container">
+        <!-- Questions will be displayed here one at a time -->
+      </div>
+      
+      <div class="navigation">
+        <button class="prev-btn" disabled>Back</button>
+        <button class="next-btn">Next</button>
+      </div>
+    </div>
+    
+    <!-- Right panel: Order summary -->
+    <div class="summary-panel">
+      <div class="summary-container">
+        <h2>Your Order</h2>
+        <div class="order-details">
+          <!-- Order details will be populated here -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Function to generate options for select elements
+    function generateOptionRange(start, end, step) {
+      let options = '';
+      for (let i = start; i <= end; i += step) {
+        const value = i.toFixed(2).replace(/\.00$/, '').replace(/\.0$/, '');
+        options += `<option value="${value}">${value}</option>`;
+      }
+      return options;
+    }
+
+    // Question data with all content pre-processed to avoid runtime errors
+    const questions = [
+      {
+        id: 'name',
+        title: 'What\'s your name?',
+        description: 'We\'ll use this to personalize your experience.',
+        input: `
+          <div class="input-group">
+            <input type="text" id="first-name" placeholder="First name" required>
+            <div class="input-error">Please enter your first name</div>
+          </div>
+          <div class="input-group">
+            <input type="text" id="last-name" placeholder="Last name" required>
+            <div class="input-error">Please enter your last name</div>
+          </div>
+        `
+      },
+      {
+        id: 'email',
+        title: 'What\'s your email address?',
+        description: 'We\'ll send your order confirmation here.',
+        input: `
+          <div class="input-group">
+            <input type="email" id="email" placeholder="your@email.com" required>
+            <div class="input-error">Please enter a valid email address</div>
+          </div>
+        `
+      },
+      {
+        id: 'brand',
+        title: 'What brand of contact lenses do you wear?',
+        description: 'Select your preferred brand or enter another one.',
+        input: `
+          <div class="options-container">
+            <div class="option-card" data-brand="Acuvue">
+              <div class="option-icon">A</div>
+              <div class="option-label">Acuvue</div>
+            </div>
+            <div class="option-card" data-brand="Biofinity">
+              <div class="option-icon">B</div>
+              <div class="option-label">Biofinity</div>
+            </div>
+            <div class="option-card" data-brand="Dailies">
+              <div class="option-icon">D</div>
+              <div class="option-label">Dailies</div>
+            </div>
+            <div class="option-card" data-brand="Air Optix">
+              <div class="option-icon">O</div>
+              <div class="option-label">Air Optix</div>
+            </div>
+            <div class="option-card" data-brand="other">
+              <div class="option-icon">+</div>
+              <div class="option-label">Other</div>
+            </div>
+          </div>
+          <div class="input-group hidden" id="other-brand-group">
+            <input type="text" id="other-brand" placeholder="Enter your lens brand...">
+          </div>
+          <div class="input-error">Please select a brand</div>
+        `
+      },
+      {
+        id: 'prescription-method',
+        title: 'How would you like to provide your prescription?',
+        description: 'Choose the method that\'s most convenient for you.',
+        input: `
+          <div class="options-container">
+            <div class="option-card" data-method="manual">
+              <div class="option-icon">✍️</div>
+              <div class="option-label">Enter manually</div>
+              <div class="option-detail">Enter your prescription details yourself</div>
+            </div>
+            <div class="option-card" data-method="upload">
+              <div class="option-icon">📄</div>
+              <div class="option-label">Upload prescription</div>
+              <div class="option-detail">Upload a photo or PDF of your prescription</div>
+            </div>
+            <div class="option-card" data-method="scan">
+              <div class="option-icon">📱</div>
+              <div class="option-label">Scan box</div>
+              <div class="option-detail">Take a photo of your contact lens box</div>
+            </div>
+          </div>
+          <div class="input-error">Please select a method</div>
+        `
+      },
+      {
+        id: 'prescription-manual',
+        title: 'Enter your prescription details',
+        description: 'Fill in the details from your prescription.',
+        input: `
+          <div class="prescription-form">
+            <div class="input-group">
+              <label for="right-power">Right Eye - Power</label>
+              <select id="right-power" required>
+                <option value="" disabled selected>Select power</option>
+                ${generateOptionRange(-12.00, 8.00, 0.25)}
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="left-power">Left Eye - Power</label>
+              <select id="left-power" required>
+                <option value="" disabled selected>Select power</option>
+                ${generateOptionRange(-12.00, 8.00, 0.25)}
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="right-bc">Right Eye - Base Curve</label>
+              <select id="right-bc">
+                <option value="" disabled selected>Select base curve</option>
+                ${generateOptionRange(8.0, 9.0, 0.1)}
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="left-bc">Left Eye - Base Curve</label>
+              <select id="left-bc">
+                <option value="" disabled selected>Select base curve</option>
+                ${generateOptionRange(8.0, 9.0, 0.1)}
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="right-dia">Right Eye - Diameter</label>
+              <select id="right-dia">
+                <option value="" disabled selected>Select diameter</option>
+                ${generateOptionRange(13.0, 15.0, 0.1)}
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="left-dia">Left Eye - Diameter</label>
+              <select id="left-dia">
+                <option value="" disabled selected>Select diameter</option>
+                ${generateOptionRange(13.0, 15.0, 0.1)}
+              </select>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 'prescription-upload',
+        title: 'Upload your prescription',
+        description: 'Drag and drop or click to upload your prescription file.',
+        input: `
+          <div class="file-upload">
+            <div class="file-upload-icon">📤</div>
+            <div class="file-upload-text">
+              <p>Drag and drop your prescription here</p>
+              <p>or <strong>click to browse</strong></p>
+            </div>
+            <input type="file" id="prescription-file" accept="image/*,.pdf">
+          </div>
+          <div class="input-error">Please upload a prescription file</div>
+        `
+      },
+      {
+        id: 'prescription-scan',
+        title: 'Scan your contact lens box',
+        description: 'Use your camera to scan the barcode or details on your contact lens box.',
+        input: `
+          <div class="file-upload">
+            <div class="file-upload-icon">📷</div>
+            <div class="file-upload-text">
+              <p>Click to open camera</p>
+              <p>or <strong>upload an image of your box</strong></p>
+            </div>
+            <input type="file" id="box-image" accept="image/*" capture="environment">
+          </div>
+          <div class="input-error">Please take a photo of your box</div>
+        `
+      },
+      {
+        id: 'quantity',
+        title: 'How many boxes would you like?',
+        description: 'Select the quantity for each eye.',
+        input: `
+          <div class="prescription-form">
+            <div class="input-group">
+              <label for="right-quantity">Right Eye</label>
+              <select id="right-quantity" required>
+                <option value="1">1 box</option>
+                <option value="2">2 boxes</option>
+                <option value="3">3 boxes</option>
+                <option value="4" selected>4 boxes (Annual supply)</option>
+                <option value="6">6 boxes</option>
+                <option value="8">8 boxes</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="left-quantity">Left Eye</label>
+              <select id="left-quantity" required>
+                <option value="1">1 box</option>
+                <option value="2">2 boxes</option>
+                <option value="3">3 boxes</option>
+                <option value="4" selected>4 boxes (Annual supply)</option>
+                <option value="6">6 boxes</option>
+                <option value="8">8 boxes</option>
+              </select>
+            </div>
+          </div>
+        `
+      },
+      {
+        id: 'shipping',
+        title: 'Choose your shipping method',
+        description: 'Select how quickly you\'d like to receive your order.',
+        input: `
+          <div class="options-container">
+            <div class="option-card" data-shipping="standard">
+              <div class="option-icon">🚚</div>
+              <div class="option-label">Standard</div>
+              <div class="option-detail">5-7 business days</div>
+              <div class="option-price">Free</div>
+            </div>
+            <div class="option-card" data-shipping="expedited">
+              <div class="option-icon">⚡</div>
+              <div class="option-label">Expedited</div>
+              <div class="option-detail">2-3 business days</div>
+              <div class="option-price">$5.99</div>
+            </div>
+            <div class="option-card" data-shipping="overnight">
+              <div class="option-icon">✈️</div>
+              <div class="option-label">Overnight</div>
+              <div class="option-detail">Next business day</div>
+              <div class="option-price">$12.99</div>
+            </div>
+          </div>
+          <div class="input-error">Please select a shipping method</div>
+        `
+      },
+      {
+        id: 'review',
+        title: 'Review your order',
+        description: 'Check that everything is correct before proceeding to checkout.',
+        input: `
+          <div class="order-summary">
+            <p>Your order details are complete! Review your order on the right and click "Proceed to Checkout" when you're ready.</p>
+          </div>
+        `
+      }
+    ];
+    
+    // Order data object to store all user selections
+    let orderData = {
+      customer: {},
+      prescription: {
+        method: null
+      },
+      product: {},
+      shipping: {}
+    };
+    
+    // Current question index
+    let currentQuestionIndex = 0;
+    
+    // DOM Elements
+    const questionContainer = document.querySelector('.question-container');
+    const progressIndicator = document.querySelector('.progress-indicator');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    const orderDetails = document.querySelector('.order-details');
+    
+    // Render the current question
+    function renderQuestion(index) {
+      const question = questions[index];
+      
+      // Create question element
+      const questionElement = document.createElement('div');
+      questionElement.className = 'question';
+      questionElement.innerHTML = `
+        <h2>${question.title}</h2>
+        <p>${question.description}</p>
+        <div class="question-inputs">${question.input}</div>
+      `;
+      
+      // Clear previous questions
+      questionContainer.innerHTML = '';
+      questionContainer.appendChild(questionElement);
+      
+      // Update progress
+      updateProgress();
+      
+      // Add event listeners specific to this question
+      setupQuestionListeners(question);
+      
+      // Check if inputs have values to enable/disable next button
+      checkInputValidity();
+    }
+    
+    // Setup event listeners for the current question
+    function setupQuestionListeners(question) {
+      switch(question.id) {
+        case 'name':
+          const firstNameInput = document.getElementById('first-name');
+          const lastNameInput = document.getElementById('last-name');
+          
+          // Restore values if they exist
+          if (orderData.customer.firstName) {
+            firstNameInput.value = orderData.customer.firstName;
+          }
+          if (orderData.customer.lastName) {
+            lastNameInput.value = orderData.customer.lastName;
+          }
+          
+          // Add input listeners
+          firstNameInput.addEventListener('input', () => {
+            orderData.customer.firstName = firstNameInput.value.trim();
+            updateOrderSummary();
+            checkInputValidity();
+          });
+          
+          lastNameInput.addEventListener('input', () => {
+            orderData.customer.lastName = lastNameInput.value.trim();
+            updateOrderSummary();
+            checkInputValidity();
+          });
+          break;
+          
+        case 'email':
+          const emailInput = document.getElementById('email');
+          
+          // Restore value if it exists
+          if (orderData.customer.email) {
+            emailInput.value = orderData.customer.email;
+          }
+          
+          // Add input listener
+          emailInput.addEventListener('input', () => {
+            orderData.customer.email = emailInput.value.trim();
+            updateOrderSummary();
+            checkInputValidity();
+          });
+          break;
+          
+        case 'brand':
+          const brandOptions = document.querySelectorAll('.option-card[data-brand]');
+          const otherBrandGroup = document.getElementById('other-brand-group');
+          const otherBrandInput = document.getElementById('other-brand');
+          
+          // Restore selected brand if it exists
+          if (orderData.product.brand) {
+            if (orderData.product.isOtherBrand) {
+              const otherOption = document.querySelector('.option-card[data-brand="other"]');
+              if (otherOption) {
+                otherOption.classList.add('selected');
+                otherBrandGroup.classList.remove('hidden');
+                otherBrandInput.value = orderData.product.brand;
+              }
+            } else {
+              const selectedOption = Array.from(brandOptions).find(
+                option => option.dataset.brand === orderData.product.brand
+              );
+              if (selectedOption) {
+                selectedOption.classList.add('selected');
+              }
+            }
+          }
+          
+          // Add click listeners to brand options
+          brandOptions.forEach(option => {
+            option.addEventListener('click', () => {
+              // Remove selected class from all options
+              brandOptions.forEach(opt => opt.classList.remove('selected'));
+              
+              // Add selected class to clicked option
+              option.classList.add('selected');
+              
+              if (option.dataset.brand === "other") {
+                // Show other input
+                otherBrandGroup.classList.remove('hidden');
+                otherBrandInput.focus();
+                orderData.product.isOtherBrand = true;
+                // Only update if there's a value
+                if (otherBrandInput.value.trim()) {
+                  orderData.product.brand = otherBrandInput.value.trim();
+                } else {
+                  delete orderData.product.brand;
+                }
+              } else {
+                // Hide other input
+                otherBrandGroup.classList.add('hidden');
+                otherBrandInput.value = '';
+                
+                // Update order data
+                orderData.product.brand = option.dataset.brand;
+                orderData.product.isOtherBrand = false;
+              }
+              
+              updateOrderSummary();
+              checkInputValidity();
+            });
+          });
+          
+          // Add input listener to other brand input
+          otherBrandInput.addEventListener('input', () => {
+            orderData.product.brand = otherBrandInput.value.trim();
+            updateOrderSummary();
+            checkInputValidity();
+          });
+          break;
+          
+        case 'prescription-method':
+          const methodOptions = document.querySelectorAll('.option-card[data-method]');
+          
+          // Restore selected method if it exists
+          if (orderData.prescription.method) {
+            const selectedOption = document.querySelector(`.option-card[data-method="${orderData.prescription.method}"]`);
+            if (selectedOption) {
+              selectedOption.classList.add('selected');
+            }
+          }
+          
+          // Add click listeners to method options
+          methodOptions.forEach(option => {
+            option.addEventListener('click', () => {
+              // Remove selected class from all options
+              methodOptions.forEach(opt => opt.classList.remove('selected'));
+              
+              // Add selected class to clicked option
+              option.classList.add('selected');
+              
+              // Update order data
+              orderData.prescription.method = option.dataset.method;
+              
+              updateOrderSummary();
+              checkInputValidity();
+            });
+          });
+          break;
+          
+        case 'prescription-manual':
+          // Handle manual prescription inputs
+          const prescriptionInputs = document.querySelectorAll('.prescription-form select');
+          
+          // Restore values if they exist
+          if (orderData.prescription.rightPower) {
+            document.getElementById('right-power').value = orderData.prescription.rightPower;
+          }
+          if (orderData.prescription.leftPower) {
+            document.getElementById('left-power').value = orderData.prescription.leftPower;
+          }
+          if (orderData.prescription.rightBC) {
+            document.getElementById('right-bc').value = orderData.prescription.rightBC;
+          }
+          if (orderData.prescription.leftBC) {
+            document.getElementById('left-bc').value = orderData.prescription.leftBC;
+          }
+          if (orderData.prescription.rightDia) {
+            document.getElementById('right-dia').value = orderData.prescription.rightDia;
+          }
+          if (orderData.prescription.leftDia) {
+            document.getElementById('left-dia').value = orderData.prescription.leftDia;
+          }
+          
+          // Add change listeners
+          prescriptionInputs.forEach(input => {
+            input.addEventListener('change', () => {
+              // Update order data based on input id
+              switch(input.id) {
+                case 'right-power':
+                  orderData.prescription.rightPower = input.value;
+                  break;
+                case 'left-power':
+                  orderData.prescription.leftPower = input.value;
+                  break;
+                case 'right-bc':
+                  orderData.prescription.rightBC = input.value;
+                  break;
+                case 'left-bc':
+                  orderData.prescription.leftBC = input.value;
+                  break;
+                case 'right-dia':
+                  orderData.prescription.rightDia = input.value;
+                  break;
+                case 'left-dia':
+                  orderData.prescription.leftDia = input.value;
+                  break;
+              }
+              
+              updateOrderSummary();
+              checkInputValidity();
+            });
+          });
+          break;
+          
+        case 'prescription-upload':
+          const prescriptionFileInput = document.getElementById('prescription-file');
+          
+          // Restore file name display if it exists
+          if (orderData.prescription.file) {
+            const fileUploadText = document.querySelector('.file-upload-text');
+            fileUploadText.innerHTML = `<p>Selected: ${orderData.prescription.file}</p>`;
+          }
+          
+          prescriptionFileInput.addEventListener('change', () => {
+            if (prescriptionFileInput.files.length > 0) {
+              orderData.prescription.file = prescriptionFileInput.files[0].name;
+              
+              // Update UI to show selected file
+              const fileUploadText = document.querySelector('.file-upload-text');
+              fileUploadText.innerHTML = `<p>Selected: ${orderData.prescription.file}</p>`;
+              
+              updateOrderSummary();
+              checkInputValidity();
+            }
+          });
+          
+          // Add drag and drop functionality
+          const fileUpload = document.querySelector('.file-upload');
+          
+          ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            fileUpload.addEventListener(eventName, preventDefaults, false);
+          });
+          
+          function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          
+          ['dragenter', 'dragover'].forEach(eventName => {
+            fileUpload.addEventListener(eventName, highlight, false);
+          });
+          
+          ['dragleave', 'drop'].forEach(eventName => {
+            fileUpload.addEventListener(eventName, unhighlight, false);
+          });
+          
+          function highlight() {
+            fileUpload.classList.add('highlight');
+          }
+          
+          function unhighlight() {
+            fileUpload.classList.remove('highlight');
+          }
+          
+          fileUpload.addEventListener('drop', handleDrop, false);
+          
+          function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            
+            if (files.length > 0) {
+              prescriptionFileInput.files = files;
+              orderData.prescription.file = files[0].name;
+              
+              // Update UI to show selected file
+              const fileUploadText = document.querySelector('.file-upload-text');
+              fileUploadText.innerHTML = `<p>Selected: ${orderData.prescription.file}</p>`;
+              
+              updateOrderSummary();
+              checkInputValidity();
+            }
+          }
+          break;
+          
+        case 'prescription-scan':
+          const boxImageInput = document.getElementById('box-image');
+          
+          // Restore file name display if it exists
+          if (orderData.prescription.boxImage) {
+            const fileUploadText = document.querySelector('.file-upload-text');
+            fileUploadText.innerHTML = `<p>Selected: ${orderData.prescription.boxImage}</p>`;
+          }
+          
+          boxImageInput.addEventListener('change', () => {
+            if (boxImageInput.files.length > 0) {
+              orderData.prescription.boxImage = boxImageInput.files[0].name;
+              
+              // Update UI to show selected file
+              const fileUploadText = document.querySelector('.file-upload-text');
+              fileUploadText.innerHTML = `<p>Selected: ${orderData.prescription.boxImage}</p>`;
+              
+              updateOrderSummary();
+              checkInputValidity();
+            }
+          });
+          break;
+          
+        case 'quantity':
+          const rightQuantitySelect = document.getElementById('right-quantity');
+          const leftQuantitySelect = document.getElementById('left-quantity');
+          
+          // Restore values if they exist
+          if (orderData.product.rightQuantity) {
+            rightQuantitySelect.value = orderData.product.rightQuantity;
+          }
+          if (orderData.product.leftQuantity) {
+            leftQuantitySelect.value = orderData.product.leftQuantity;
+          }
+          
+          // Add change listeners
+          rightQuantitySelect.addEventListener('change', () => {
+            orderData.product.rightQuantity = rightQuantitySelect.value;
+            calculateTotal();
+            updateOrderSummary();
+            checkInputValidity();
+          });
+          
+          leftQuantitySelect.addEventListener('change', () => {
+            orderData.product.leftQuantity = leftQuantitySelect.value;
+            calculateTotal();
+            updateOrderSummary();
+            checkInputValidity();
+          });
+          
+          // Initialize quantities if not set
+          if (!orderData.product.rightQuantity) {
+            orderData.product.rightQuantity = rightQuantitySelect.value;
+          }
+          if (!orderData.product.leftQuantity) {
+            orderData.product.leftQuantity = leftQuantitySelect.value;
+          }
+          
+          calculateTotal();
+          updateOrderSummary();
+          break;
+          
+        case 'shipping':
+          const shippingOptions = document.querySelectorAll('.option-card[data-shipping]');
+          
+          // Restore selected shipping if it exists
+          if (orderData.shipping.method) {
+            const selectedOption = document.querySelector(`.option-card[data-shipping="${orderData.shipping.method}"]`);
+            if (selectedOption) {
+              selectedOption.classList.add('selected');
+            }
+          }
+          
+          // Add click listeners to shipping options
+          shippingOptions.forEach(option => {
+            option.addEventListener('click', () => {
+              // Remove selected class from all options
+              shippingOptions.forEach(opt => opt.classList.remove('selected'));
+              
+              // Add selected class to clicked option
+              option.classList.add('selected');
+              
+              // Update order data
+              orderData.shipping.method = option.dataset.shipping;
+              
+              // Set shipping cost based on selected method
+              switch(option.dataset.shipping) {
+                case 'standard':
+                  orderData.shipping.cost = 0;
+                  orderData.shipping.label = 'Standard (5-7 business days)';
+                  break;
+                case 'expedited':
+                  orderData.shipping.cost = 5.99;
+                  orderData.shipping.label = 'Expedited (2-3 business days)';
+                  break;
+                case 'overnight':
+                  orderData.shipping.cost = 12.99;
+                  orderData.shipping.label = 'Overnight (Next business day)';
+                  break;
+              }
+              
+              calculateTotal();
+              updateOrderSummary();
+              checkInputValidity();
+            });
+          });
+          break;
+          
+        case 'review':
+          // Add checkout button to summary panel
+          const summaryContainer = document.querySelector('.summary-container');
+          let checkoutBtn = document.querySelector('.checkout-btn');
+          
+          if (!checkoutBtn) {
+            checkoutBtn = document.createElement('button');
+            checkoutBtn.className = 'checkout-btn';
+            checkoutBtn.textContent = 'Proceed to Checkout';
+            summaryContainer.appendChild(checkoutBtn);
+          }
+          
+          checkoutBtn.style.display = 'block';
+          
+          checkoutBtn.addEventListener('click', () => {
+            alert('Proceeding to checkout! This would normally redirect to the payment page.');
+          });
+          
+          // Always enable next button for review step
+          nextBtn.disabled = false;
+          break;
+      }
+    }
+    
+    // Check if inputs have values to enable/disable next button
+    function checkInputValidity() {
+      let isValid = false;
+      
+      const currentQuestion = questions[currentQuestionIndex];
+      
+      switch(currentQuestion.id) {
+        case 'name':
+          const firstName = document.getElementById('first-name').value.trim();
+          const lastName = document.getElementById('last-name').value.trim();
+          isValid = firstName !== '' && lastName !== '';
+          break;
+          
+        case 'email':
+          const email = document.getElementById('email').value.trim();
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          isValid = emailRegex.test(email);
+          break;
+          
+        case 'brand':
+          if (orderData.product.isOtherBrand) {
+            isValid = orderData.product.brand && orderData.product.brand.trim() !== '';
+          } else {
+            isValid = !!orderData.product.brand;
+          }
+          break;
+          
+        case 'prescription-method':
+          isValid = !!orderData.prescription.method;
+          break;
+          
+        case 'prescription-manual':
+          // Required fields are right and left power
+          const rightPower = document.getElementById('right-power').value;
+          const leftPower = document.getElementById('left-power').value;
+          isValid = rightPower !== '' && leftPower !== '';
+          break;
+          
+        case 'prescription-upload':
+          isValid = !!orderData.prescription.file;
+          break;
+          
+        case 'prescription-scan':
+          isValid = !!orderData.prescription.boxImage;
+          break;
+          
+        case 'quantity':
+          isValid = orderData.product.rightQuantity && orderData.product.leftQuantity;
+          break;
+          
+        case 'shipping':
+          isValid = !!orderData.shipping.method;
+          break;
+          
+        case 'review':
+          isValid = true;
+          break;
+      }
+      
+      nextBtn.disabled = !isValid;
+      return isValid;
+    }
+    
+    // Go to the next question
+    function goToNextQuestion() {
+      if (currentQuestionIndex < questions.length - 1) {
+        // Handle special case for prescription method selection
+        if (questions[currentQuestionIndex].id === 'prescription-method' && orderData.prescription.method) {
+          // Skip to the appropriate prescription entry method based on selection
+          switch(orderData.prescription.method) {
+            case 'manual':
+              currentQuestionIndex = questions.findIndex(q => q.id === 'prescription-manual');
+              break;
+            case 'upload':
+              currentQuestionIndex = questions.findIndex(q => q.id === 'prescription-upload');
+              break;
+            case 'scan':
+              currentQuestionIndex = questions.findIndex(q => q.id === 'prescription-scan');
+              break;
+            default:
+              currentQuestionIndex++;
+          }
+        } else {
+          currentQuestionIndex++;
+        }
+        
+        renderQuestion(currentQuestionIndex);
+        updateNavigationButtons();
+      }
+    }
+    
+    // Go to the previous question
+    function goToPreviousQuestion() {
+      if (currentQuestionIndex > 0) {
+        // Handle special case when going back from prescription entry methods
+        const currentId = questions[currentQuestionIndex].id;
+        if (currentId === 'prescription-manual' || currentId === 'prescription-upload' || currentId === 'prescription-scan') {
+          currentQuestionIndex = questions.findIndex(q => q.id === 'prescription-method');
+        } else {
+          currentQuestionIndex--;
+        }
+        
+        renderQuestion(currentQuestionIndex);
+        updateNavigationButtons();
+      }
+    }
+    
+    // Update progress bar
+    function updateProgress() {
+      const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+      progressIndicator.style.width = `${progress}%`;
+    }
+    
+    // Update navigation buttons (prev/next)
+    function updateNavigationButtons() {
+      prevBtn.disabled = currentQuestionIndex === 0;
+      
+      // Check input validity to enable/disable next button
+      checkInputValidity();
+      
+      // If last question, change next button text
+      if (currentQuestionIndex === questions.length - 1) {
+        nextBtn.textContent = 'Complete';
+      } else {
+        nextBtn.textContent = 'Next';
+      }
+    }
+    
+    // Get prescription summary text based on current data
+    function getPrescriptionSummary() {
+      if (!orderData.prescription.method) {
+        return '<span class="empty-state">Not provided yet</span>';
+      }
+      
+      switch(orderData.prescription.method) {
+        case 'manual':
+          let details = [];
+          
+          if (orderData.prescription.rightPower) {
+            details.push(`R: ${orderData.prescription.rightPower}`);
+          }
+          if (orderData.prescription.leftPower) {
+            details.push(`L: ${orderData.prescription.leftPower}`);
+          }
+          
+          return details.length > 0 
+            ? details.join(' / ') 
+            : '<span class="empty-state">Manual entry (incomplete)</span>';
+          
+        case 'upload':
+          return orderData.prescription.file
+            ? `Uploaded: ${orderData.prescription.file}`
+            : '<span class="empty-state">Upload pending</span>';
+          
+        case 'scan':
+          return orderData.prescription.boxImage
+            ? `Scanned box: ${orderData.prescription.boxImage}`
+            : '<span class="empty-state">Scan pending</span>';
+          
+        default:
+          return '<span class="empty-state">Not provided yet</span>';
+      }
+    }
+    
+    // Get quantity summary text
+    function getQuantitySummary() {
+      if (!orderData.product.rightQuantity && !orderData.product.leftQuantity) {
+        return '<span class="empty-state">Not selected yet</span>';
+      }
+      
+      let summary = [];
+      
+      if (orderData.product.rightQuantity) {
+        summary.push(`Right: ${orderData.product.rightQuantity} box${orderData.product.rightQuantity > 1 ? 'es' : ''}`);
+      }
+      
+      if (orderData.product.leftQuantity) {
+        summary.push(`Left: ${orderData.product.leftQuantity} box${orderData.product.leftQuantity > 1 ? 'es' : ''}`);
+      }
+      
+      return summary.join('<br>');
+    }
+    
+    // Calculate total price
+    function calculateTotal() {
+      // Base price per box (this could be fetched from a database in a real system)
+      const basePrice = 29.99;
+      
+      // Calculate subtotal based on quantities
+      let subtotal = 0;
+      
+      if (orderData.product.rightQuantity) {
+        subtotal += basePrice * parseInt(orderData.product.rightQuantity);
+      }
+      
+      if (orderData.product.leftQuantity) {
+        subtotal += basePrice * parseInt(orderData.product.leftQuantity);
+      }
+      
+      // Add shipping cost
+      const shippingCost = orderData.shipping && orderData.shipping.cost ? orderData.shipping.cost : 0;
+      
+      // Set total
+      orderData.subtotal = subtotal;
+      orderData.total = subtotal + shippingCost;
+      
+      return orderData.total;
+    }
+    
+    // Render order summary
+    function renderOrderSummary() {
+      orderDetails.innerHTML = `
+        <div class="detail-item">
+          <div class="detail-label">Customer</div>
+          <div class="detail-value customer-name">
+            ${orderData.customer.firstName || orderData.customer.lastName 
+                ? `${orderData.customer.firstName || ''} ${orderData.customer.lastName || ''}`.trim()
+                : '<span class="empty-state">Not provided yet</span>'}
+          </div>
+          <div class="small-detail customer-email">
+            ${orderData.customer.email 
+                ? orderData.customer.email
+                : ''}
+          </div>
+        </div>
+        
+        <div class="detail-item">
+          <div class="detail-label">Contact Lens</div>
+          <div class="detail-value lens-brand">
+            ${orderData.product.brand 
+                ? orderData.product.brand 
+                : '<span class="empty-state">Not selected yet</span>'}
+          </div>
+        </div>
+        
+        <div class="detail-item">
+          <div class="detail-label">Prescription</div>
+          <div class="detail-value prescription-details">
+            ${getPrescriptionSummary()}
+          </div>
+        </div>
+        
+        <div class="detail-item">
+          <div class="detail-label">Quantity</div>
+          <div class="detail-value quantity-details">
+            ${getQuantitySummary()}
+          </div>
+        </div>
+        
+        <div class="detail-item">
+          <div class="detail-label">Shipping</div>
+          <div class="detail-value shipping-method">
+            ${orderData.shipping.label 
+                ? orderData.shipping.label 
+                : '<span class="empty-state">Not selected yet</span>'}
+          </div>
+        </div>
+        
+        <div class="total-section">
+          <div class="detail-label">Total</div>
+          <div class="detail-value order-total">
+            ${orderData.total 
+                ? '$' + orderData.total.toFixed(2) 
+                : '$0.00'}
+          </div>
+        </div>
+      `;
+    }
+    
+    // Update order summary with animation
+    function updateOrderSummary() {
+      // Render the summary
+      renderOrderSummary();
+      
+      // Add highlight animation to the summary container
+      const summaryContainer = document.querySelector('.summary-container');
+      summaryContainer.classList.remove('highlight');
+      void summaryContainer.offsetWidth; // Trigger reflow to restart animation
+      summaryContainer.classList.add('highlight');
+    }
+    
+    // Initialize
+    function init() {
+      renderQuestion(currentQuestionIndex);
+      renderOrderSummary();
+      
+      // Event listeners
+      prevBtn.addEventListener('click', goToPreviousQuestion);
+      nextBtn.addEventListener('click', goToNextQuestion);
+      
+      // Update button states
+      updateNavigationButtons();
+    }
+    
+    // Start the application when DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', init);
+    
+    // Run init immediately as well, for browsers that might have already loaded DOM
+    init();
+  </script>
+</body>
+</html>
