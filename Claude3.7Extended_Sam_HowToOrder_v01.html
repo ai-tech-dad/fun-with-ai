@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClearView Contacts | Simple Online Ordering</title>
+    <style>
+        :root {
+            --primary-blue: #2b7de9;
+            --light-blue: #e8f1fd;
+            --dark-blue: #1a56a2;
+            --cta-orange: #ff6b35;
+            --cta-hover: #ff8559;
+            --white: #ffffff;
+            --light-gray: #f5f7fa;
+            --text-dark: #333333;
+            --text-gray: #6c757d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -15px;
+        }
+
+        /* 12-column grid system */
+        .col-1 { width: 8.33%; }
+        .col-2 { width: 16.66%; }
+        .col-3 { width: 25%; }
+        .col-4 { width: 33.33%; }
+        .col-5 { width: 41.66%; }
+        .col-6 { width: 50%; }
+        .col-7 { width: 58.33%; }
+        .col-8 { width: 66.66%; }
+        .col-9 { width: 75%; }
+        .col-10 { width: 83.33%; }
+        .col-11 { width: 91.66%; }
+        .col-12 { width: 100%; }
+
+        [class*="col-"] {
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            margin-right: 8px;
+            font-size: 28px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-blue);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(to right, var(--light-blue), var(--white));
+            padding: 150px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: var(--text-gray);
+            max-width: 600px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--cta-orange);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.2);
+        }
+
+        .btn:hover {
+            background-color: var(--cta-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+            box-shadow: none;
+            margin-left: 15px;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .hero-image {
+            position: relative;
+            text-align: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--text-gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .step-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            height: 100%;
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .step-icon {
+            background-color: var(--light-blue);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: var(--primary-blue);
+        }
+
+        .step-number {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 4rem;
+            color: rgba(43, 125, 233, 0.1);
+            font-weight: bold;
+        }
+
+        .step-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .step-card p {
+            color: var(--text-gray);
+        }
+
+        .prescription-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .prescription-option {
+            flex: 1;
+            min-width: 150px;
+            background-color: var(--light-blue);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .prescription-option:hover {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .prescription-option i {
+            font-size: 24px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        /* Why Choose Us */
+        .why-choose-us {
+            padding: 80px 0;
+            background-color: var(--light-gray);
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: var(--text-gray);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+
+        .testimonial-card {
+            background-color: var(--light-blue);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .testimonial-card:before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 60px;
+            color: rgba(43, 125, 233, 0.2);
+            font-family: Georgia, serif;
+        }
+
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 20px;
+            padding-left: 30px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .testimonial-info h4 {
+            margin-bottom: 5px;
+        }
+
+        .testimonial-info p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 80px 0;
+            background-color: var(--light-gray);
+        }
+
+        .accordion {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background-color: var(--white);
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .accordion-header h3 {
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s;
+        }
+
+        .accordion-content {
+            background-color: var(--white);
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+        }
+
+        .accordion-content p {
+            padding: 20px;
+            margin: 0;
+        }
+
+        .accordion.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion.active .accordion-content {
+            max-height: 200px;
+            padding: 0;
+        }
+
+        /* Call to Action */
+        .cta {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            color: var(--white);
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .cta .btn {
+            background-color: var(--cta-orange);
+            color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-dark);
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+
+        .footer-logo {
+            color: var(--white);
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .footer-contact {
+            margin-bottom: 30px;
+        }
+
+        .footer-contact a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+        }
+
+        .footer-links h4 {
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--white);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-blue);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            margin-top: 30px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Helper Classes */
+        .text-center { text-align: center; }
+        .mt-4 { margin-top: 40px; }
+        .mb-4 { margin-bottom: 40px; }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .col-md-6 { width: 50%; }
+            .col-md-12 { width: 100%; }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-image {
+                margin-top: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .col-sm-6 { width: 50%; }
+            .col-sm-12 { width: 100%; }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav {
+                position: absolute;
+                top: 70px;
+                left: 0;
+                background-color: var(--white);
+                width: 100%;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                pointer-events: none;
+                transition: transform 0.3s, opacity 0.3s;
+            }
+            
+            nav.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: all;
+            }
+            
+            nav ul {
+                flex-direction: column;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .hero {
+                padding: 120px 0 60px;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+                margin-top: 15px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .col-xs-12 { width: 100%; }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-container">
+                <a href="#" class="logo">
+                    <span class="logo-icon">👁️</span> ClearView Contacts
+                </a>
+                <button class="mobile-menu-btn">☰</button>
+                <nav>
+                    <ul>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#why-choose">Why Choose Us</a></li>
+                        <li><a href="#faq">FAQs</a></li>
+                        <li><a href="#" class="btn">Order Now</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-md-12">
+                    <h1>Contact Lenses Delivered to Your Door</h1>
+                    <p>Ordering contacts online has never been easier. We'll handle the prescription verification for you – all you need to do is tell us what you need!</p>
+                    <a href="#" class="btn">Start Ordering</a>
+                    <a href="#how-it-works" class="btn btn-outline">Learn How It Works</a>
+                </div>
+                <div class="col-6 col-md-12">
+                    <div class="hero-image">
+                        <img src="/api/placeholder/550/350" alt="Contact lens box with a happy customer" class="floating" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>Ordering contact lenses online is simple with our easy 3-step process. We've designed it to be hassle-free, even if this is your first time ordering online.</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-4 col-md-12">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <div class="step-icon">📋</div>
+                        <h3>Share Your Prescription</h3>
+                        <p>Let us know about your prescription in whatever way is easiest for you:</p>
+                        <div class="prescription-options">
+                            <div class="prescription-option">
+                                <i>📄</i>
+                                Paper Rx
+                            </div>
+                            <div class="prescription-option">
+                                <i>📱</i>
+                                Digital Rx
+                            </div>
+                            <div class="prescription-option">
+                                <i>📦</i>
+                                Lens Box
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-4 col-md-12">
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <div class="step-icon">✅</div>
+                        <h3>We Handle Verification</h3>
+                        <p>Our team will contact your eye doctor to verify your prescription. No phone calls or paperwork needed from you!</p>
+                        <p class="mt-4">If your prescription is expired, we'll help you renew it with our quick online tool.</p>
+                    </div>
+                </div>
+                
+                <div class="col-4 col-md-12">
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <div class="step-icon">📦</div>
+                        <h3>Get Your Contacts Delivered</h3>
+                        <p>We'll ship your contacts directly to your door with free shipping. Typically arrives in 5-7 business days.</p>
+                        <p class="mt-4">All orders come with our happiness guarantee – if you're not satisfied, we'll make it right!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-choose-us" id="why-choose">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose ClearView Contacts</h2>
+                <p>We've helped thousands of people make the switch to ordering contacts online. Here's why they love us.</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-3 col-md-6 col-sm-12">
+                    <div class="feature-card">
+                        <div class="feature-icon">🚚</div>
+                        <h3>Free Shipping</h3>
+                        <p>All orders ship free, with no minimum order requirement.</p>
+                    </div>
+                </div>
+                
+                <div class="col-3 col-md-6 col-sm-12">
+                    <div class="feature-card">
+                        <div class="feature-icon">💰</div>
+                        <h3>Save Up to 45%</h3>
+                        <p>Our prices are typically 20-45% lower than buying from your eye doctor.</p>
+                    </div>
+                </div>
+                
+                <div class="col-3 col-md-6 col-sm-12">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Happiness Guarantee</h3>
+                        <p>Not satisfied? We'll exchange or refund your order, no questions asked.</p>
+                    </div>
+                </div>
+                
+                <div class="col-3 col-md-6 col-sm-12">
+                    <div class="feature-card">
+                        <div class="feature-icon">🏆</div>
+                        <h3>Award-Winning Service</h3>
+                        <p>Rated #1 in customer satisfaction for online contact lens retailers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Our Customers Say</h2>
+                <p>Don't just take our word for it - here's what real customers have to say about their experience.</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-4 col-md-12">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            I was nervous about ordering contacts online, but ClearView made it so easy! They contacted my eye doctor for me, and my lenses arrived in less than a week. Will definitely order again!
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">JD</div>
+                            <div class="testimonial-info">
+                                <h4>Jessica D.</h4>
+                                <p>First-time online buyer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-4 col-md-12">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            I saved almost $200 on my year's supply compared to what I was paying at my doctor's office. The customer service was incredible when I needed help figuring out my prescription.
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">MR</div>
+                            <div class="testimonial-info">
+                                <h4>Michael R.</h4>
+                                <p>Loyal customer for 2 years</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-4 col-md-12">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            My prescription had expired, and I needed contacts ASAP. Their online renewal tool was so convenient - I did it from home in my pajamas, and had new contacts in 5 days!
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">SK</div>
+                            <div class="testimonial-info">
+                                <h4>Samantha K.</h4>
+                                <p>Used prescription renewal service</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>Frequently Asked Questions</h2>
+                <p>Got questions? We've got answers. If you don't see your question here, our friendly support team is just a click away.</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-12">
+                    <div class="accordion">
+                        <div class="accordion-header">
+                            <h3>Is it legal to order contacts online?</h3>
+                            <div class="accordion-icon">▼</div>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Yes, it's completely legal to order contacts online with a valid prescription. As a medical device, contact lenses require a prescription by law. We verify every prescription with your eye doctor before shipping your order.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion">
+                        <div class="accordion-header">
+                            <h3>What if I don't have my prescription information?</h3>
+                            <div class="accordion-icon">▼</div>
+                        </div>
+                        <div class="accordion-content">
+                            <p>No problem! You can simply send us a photo of your contact lens box (the one you're currently using), and we can get all the information we need from that. Alternatively, you can provide your eye doctor's contact information, and we'll reach out to them directly to get your prescription.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion">
+                        <div class="accordion-header">
+                            <h3>How long does delivery take?</h3>
+                            <div class="accordion-icon">▼</div>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Standard shipping is free and typically takes 5-7 business days after your prescription is verified. Need them faster? Expedited shipping options are available at checkout for an additional fee, which can get your contacts to you in as little as 2-3 business days.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion">
+                        <div class="accordion-header">
+                            <h3>My prescription is expired. Can I still order?</h3>
+                            <div class="accordion-icon">▼</div>
+                        </div>
+                        <div class="accordion-content">
+                            <p>If your prescription is expired, you'll need to renew it before ordering. The good news is that we offer a convenient online prescription renewal service for most customers. It takes just a few minutes and can be done entirely from home. The renewal is conducted by licensed eye care professionals and costs a fraction of an in-office visit.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion">
+                        <div class="accordion-header">
+                            <h3>Do you carry all brands of contact lenses?</h3>
+                            <div class="accordion-icon">▼</div>
+                        </div>
+                        <div class="accordion-content">
+                            <p>We carry all major brands including Acuvue, Air Optix, Biofinity, Dailies, and many more. If you don't see your brand listed, contact our customer service team – we can often special order brands that aren't shown on our website.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Order Your Contacts?</h2>
+            <p>Join thousands of happy customers who save time and money ordering their contacts online. We'll handle all the details for you!</p>
+            <a href="#" class="btn">Get Started Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-4 col-md-6 col-sm-12">
+                    <a href="#" class="footer-logo">
+                        <span class="logo-icon">👁️</span> ClearView Contacts
+                    </a>
+                    <div class="footer-contact">
+                        <p>Questions? We're here to help!</p>
+                        <p>Email: <a href="mailto:help@clearviewcontacts.com">help@clearviewcontacts.com</a></p>
+                        <p>Phone: 1-800-CONTACTS</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><span>fb</span></a>
+                        <a href="#"><span>ig</span></a>
+                        <a href="#"><span>tw</span></a>
+                        <a href="#"><span>yt</span></a>
+                    </div>
+                </div>
+                
+                <div class="col-2 col-md-6 col-sm-12">
+                    <div class="footer-links">
+                        <h4>Shop</h4>
+                        <ul>
+                            <li><a href="#">Daily Contacts</a></li>
+                            <li><a href="#">Weekly Contacts</a></li>
+                            <li><a href="#">Monthly Contacts</a></li>
+                            <li><a href="#">Colored Contacts</a></li>
+                            <li><a href="#">All Brands</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-2 col-md-6 col-sm-12">
+                    <div class="footer-links">
+                        <h4>Help</h4>
+                        <ul>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Shipping Policy</a></li>
+                            <li><a href="#">Returns & Exchanges</a></li>
+                            <li><a href="#">Prescription Help</a></li>
+                            <li><a href="#">Insurance & FSA</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-4 col-md-6 col-sm-12">
+                    <div class="footer-links">
+                        <h4>About ClearView</h4>
+                        <ul>
+                            <li><a href="#">Our Story</a></li>
+                            <li><a href="#">How It Works</a></li>
+                            <li><a href="#">Reviews</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Careers</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 ClearView Contacts. All Rights Reserved. <a href="#" style="color: inherit;">Privacy Policy</a> | <a href="#" style="color: inherit;">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('nav').classList.toggle('active');
+        });
+        
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if(this.getAttribute('href') !== '#') {
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if(target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                    
+                    // Close mobile menu if open
+                    document.querySelector('nav').classList.remove('active');
+                }
+            });
+        });
+        
+        // Accordion Functionality
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const accordion = this.parentElement;
+                accordion.classList.toggle('active');
+            });
+        });
+        
+        // Prescription Option Selection
+        document.querySelectorAll('.prescription-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.prescription-option').forEach(opt => {
+                    opt.style.backgroundColor = '';
+                    opt.style.color = '';
+                });
+                
+                this.style.backgroundColor = '#2b7de9';
+                this.style.color = '#ffffff';
+            });
+        });
+        
+        // Add surprise animation on scroll
+        window.addEventListener('scroll', function() {
+            const elements = document.querySelectorAll('.step-card, .feature-card, .testimonial-card');
+            
+            elements.forEach(el => {
+                const position = el.getBoundingClientRect();
+                
+                // If element is in viewport
+                if(position.top < window.innerHeight && position.bottom >= 0) {
+                    if(!el.classList.contains('floating')) {
+                        el.classList.add('floating');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
